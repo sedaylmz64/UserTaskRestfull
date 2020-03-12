@@ -24,8 +24,10 @@ public class User{
     @Column(name = "role_name" )
     private String role;
 
-    @OneToMany
-    private Set<Task> tasks = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "user",
+            orphanRemoval = true)
+    private List<Task> tasks = new ArrayList<Task>();
 
     public User(String userName, String password, String role) {
         this.userName = userName;
@@ -65,11 +67,11 @@ public class User{
         this.role = role;
     }
 
-    public Set<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 

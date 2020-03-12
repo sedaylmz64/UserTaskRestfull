@@ -26,6 +26,9 @@ public class Task{
     @Column(name = "end_date")
     private Date endDate;
 
+    @ManyToOne
+    @JoinColumn
+    private User user;
 
     public Task(String taskName, Date startDate, Date endDate) {
         this.taskName = taskName;
