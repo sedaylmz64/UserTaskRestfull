@@ -2,9 +2,14 @@ package com.example.deneme.entity;
 
 
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
+@SuppressWarnings("JpaModelReferenceInspection")
 @Entity
 @Table(name = "task")
 public class Task{
@@ -12,6 +17,7 @@ public class Task{
     public Task(){
 
     }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +33,12 @@ public class Task{
     private Date endDate;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(updatable = false, insertable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(updatable = false, insertable = false)
+    private Process process;
 
     public Task(String taskName, Date startDate, Date endDate) {
         this.taskName = taskName;
@@ -51,6 +61,14 @@ public class Task{
     public void setUser(User user) {
 
     }
+
+    /*public Process getProcess() {
+        return process;
+    }
+
+    public void setProcess(Process process) {
+        this.process = process;
+    }*/
 
     public String getTaskName() {
         return taskName;

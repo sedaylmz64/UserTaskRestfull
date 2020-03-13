@@ -1,7 +1,6 @@
 package com.example.deneme.controller;
 
 import com.example.deneme.entity.Task;
-import com.example.deneme.entity.Task;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +21,16 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public Task createTask(@Valid @RequestBody Task Task) {
-        return taskRepository.save(Task);
+    public Task createTask(@Valid @RequestBody Task task) {
+        return taskRepository.save(task);
     }
 
     @GetMapping("/tasks/{id}")
     public Task getTaskById(@PathVariable(value = "id") int id) throws TaskNotFoundException {
-        Task x = taskRepository.findById(id)
+        Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
-        return x;
+        return task;
     }
 
 
@@ -46,6 +45,7 @@ public class TaskController {
         task.setStartDate(taskDetails.getStartDate());
         task.setEndDate(taskDetails.getEndDate());
         task.setUser(taskDetails.getUser());
+        //task.setProcess(taskDetails.getProcess());
 
         Task updatedTask = taskRepository.save(task);
 
