@@ -6,9 +6,9 @@ import java.util.*;
 
 @Entity
 @Table(name = "user")
-public class User{
+public class UserEntity {
 
-    public User() {
+    public UserEntity() {
     }
 
     @Id
@@ -25,17 +25,15 @@ public class User{
     private String role;
 
     @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "user",
+            mappedBy = "userEntity",
             orphanRemoval = true)
-    private List<Task> tasks = new ArrayList<Task>();
+    private List<TaskEntity> taskEntities = new ArrayList<TaskEntity>();
 
-    public User(String userName, String password, String role) {
+    public UserEntity(String userName, String password, String role) {
         this.userName = userName;
         this.password = password;
         this.role = role;
     }
-
-
 
     public int getId() {
         return id;
@@ -69,22 +67,22 @@ public class User{
         this.role = role;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<TaskEntity> getTaskEntities() {
+        return taskEntities;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setTaskEntities(List<TaskEntity> taskEntities) {
+        this.taskEntities = taskEntities;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserEntity{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", tasks=" + tasks +
+                ", taskEntities=" + taskEntities +
                 '}';
     }
 }

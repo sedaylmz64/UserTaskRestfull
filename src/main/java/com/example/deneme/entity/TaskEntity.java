@@ -2,19 +2,15 @@ package com.example.deneme.entity;
 
 
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("JpaModelReferenceInspection")
 @Entity
 @Table(name = "task")
-public class Task{
+public class TaskEntity {
 
-    public Task(){
+    public TaskEntity(){
 
     }
 
@@ -34,13 +30,13 @@ public class Task{
 
     @ManyToOne
     @JoinColumn(updatable = false, insertable = false)
-    private User user;
+    private UserEntity userEntity;
 
     @ManyToOne
     @JoinColumn(updatable = false, insertable = false)
-    private Process process;
+    private ProcessEntity processEntity;
 
-    public Task(String taskName, Date startDate, Date endDate) {
+    public TaskEntity(String taskName, Date startDate, Date endDate) {
         this.taskName = taskName;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -54,20 +50,20 @@ public class Task{
         this.id = id;
     }
 
-    public User getUser() {
+    public UserEntity getUserEntity() {
         return null;
     }
 
-    public void setUser(User user) {
+    public void setUserEntity(UserEntity userEntity) {
 
     }
 
-    /*public Process getProcess() {
-        return process;
+    /*public ProcessEntity getProcess() {
+        return processEntity;
     }
 
-    public void setProcess(Process process) {
-        this.process = process;
+    public void setProcess(ProcessEntity processEntity) {
+        this.processEntity = processEntity;
     }*/
 
     public String getTaskName() {
@@ -96,7 +92,7 @@ public class Task{
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "TaskEntity{" +
                 "id=" + id +
                 ", taskName='" + taskName + '\'' +
                 ", startDate=" + startDate +

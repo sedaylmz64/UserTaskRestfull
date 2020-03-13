@@ -7,9 +7,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "process")
-public class Process{
+public class ProcessEntity {
 
-    public Process(){
+    public ProcessEntity(){
 
     }
 
@@ -27,11 +27,11 @@ public class Process{
     private Date endDate;
 
     @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "process",
+            mappedBy = "processEntity",
             orphanRemoval = true)
-    private List<Task> tasks = new ArrayList<>();
+    private List<TaskEntity> taskEntities = new ArrayList<>();
 
-    public Process(String processName, Date startDate, Date endDate) {
+    public ProcessEntity(String processName, Date startDate, Date endDate) {
         this.processName = processName;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -70,12 +70,12 @@ public class Process{
         return endDate;
     }
 
-    public List<Task> getTask(){
-        return tasks;
+    public List<TaskEntity> getTask(){
+        return taskEntities;
     }
 
-    public void setTask(List<Task> tasks){
-        this.tasks = tasks;
+    public void setTask(List<TaskEntity> taskEntities){
+        this.taskEntities = taskEntities;
     }
 
 }

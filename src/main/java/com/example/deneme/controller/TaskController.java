@@ -1,8 +1,9 @@
 package com.example.deneme.controller;
 
-import com.example.deneme.entity.Task;
+import com.example.deneme.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.repositories.TaskRepository;
+import com.example.deneme.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,54 +14,35 @@ import java.util.List;
 @RestController
 public class TaskController {
     @Autowired
-    private TaskRepository taskRepository;
+    private TaskService taskService;
 
     @GetMapping("/tasks")
-    public List<Task> taskList(){
-        return taskRepository.findAll();
+    public List<TaskEntity> taskList(){
+        return taskService.taskList();
     }
 
     @PostMapping("/tasks")
-    public Task createTask(@Valid @RequestBody Task task) {
-        return taskRepository.save(task);
+    public TaskEntity createTask(@Valid @RequestBody TaskEntity taskEntity) {
+        return taskService.createTask(taskEntity);
     }
 
     @GetMapping("/tasks/{id}")
-    public Task getTaskById(@PathVariable(value = "id") int id) throws TaskNotFoundException {
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new TaskNotFoundException(id));
-
-        return task;
+    public TaskEntity getTaskById(@PathVariable(value = "id") int id) throws TaskNotFoundException {
+        return taskService.getTaskById(id);
     }
 
 
     @PutMapping("/tasks/{id}")
-    public Task updateTask(@PathVariable(value = "id") int id,
-                           @Valid @RequestBody Task taskDetails) throws TaskNotFoundException {
+    public TaskEntity updateTask(@PathVariable(value = "id") int id,
+                                 @Valid @RequestBody TaskEntity taskEntityDetails) throws TaskNotFoundException {
+        return taskService.updateTask(id, taskEntityDetails);
 
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new TaskNotFoundException(id));
-
-        task.setTaskName(taskDetails.getTaskName());
-        task.setStartDate(taskDetails.getStartDate());
-        task.setEndDate(taskDetails.getEndDate());
-        task.setUser(taskDetails.getUser());
-        //task.setProcess(taskDetails.getProcess());
-
-        Task updatedTask = taskRepository.save(task);
-
-        return updatedTask;
     }
 
 
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable(value = "id") int id) throws TaskNotFoundException {
-        Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new TaskNotFoundException(id));
-
-        taskRepository.delete(task);
-
-        return ResponseEntity.ok().build();
+        return taskService.deleteTask(id);
     }
     
 }
