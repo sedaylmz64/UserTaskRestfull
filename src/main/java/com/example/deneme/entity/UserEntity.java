@@ -24,10 +24,10 @@ public class UserEntity {
     @Column(name = "role_name" )
     private String role;
 
-    @OneToMany(cascade = CascadeType.ALL,
+    /*@OneToMany(cascade = CascadeType.ALL,
             mappedBy = "userEntity",
             orphanRemoval = true)
-    private List<TaskEntity> taskEntities = new ArrayList<TaskEntity>();
+    private List<TaskEntity> taskEntities = new ArrayList<TaskEntity>();*/
 
     public UserEntity(String userName, String password, String role) {
         this.userName = userName;
@@ -67,13 +67,13 @@ public class UserEntity {
         this.role = role;
     }
 
-    public List<TaskEntity> getTaskEntities() {
+    /*public List<TaskEntity> getTaskEntities() {
         return taskEntities;
     }
 
     public void setTaskEntities(List<TaskEntity> taskEntities) {
         this.taskEntities = taskEntities;
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -82,7 +82,7 @@ public class UserEntity {
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", taskEntities=" + taskEntities +
+                //", taskEntities=" + taskEntities +
                 '}';
     }
 }

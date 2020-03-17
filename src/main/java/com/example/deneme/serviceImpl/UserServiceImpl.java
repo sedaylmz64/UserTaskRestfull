@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         userEntity.setUserName(userEntityDetails.getUserName());
         userEntity.setPassword(userEntityDetails.getPassword());
         userEntity.setRole(userEntityDetails.getRole());
-        userEntity.setTaskEntities(userEntityDetails.getTaskEntities());
+        //userEntity.setTaskEntities(userEntityDetails.getTaskEntities());
 
         UserEntity updateduser = userRepository.save(userEntity);
 

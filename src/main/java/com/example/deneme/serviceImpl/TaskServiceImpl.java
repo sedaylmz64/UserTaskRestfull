@@ -41,6 +41,7 @@ public class TaskServiceImpl implements TaskService {
         taskEntity.setEndDate(taskEntityDetails.getEndDate());
         taskEntity.setStartDate(taskEntityDetails.getStartDate());
         taskEntity.setUserEntity(taskEntityDetails.getUserEntity());
+        taskEntity.setStatus("Done");
 
         TaskEntity updatedTask = taskRepository.save(taskEntity);
 

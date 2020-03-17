@@ -26,6 +26,9 @@ public class ProcessEntity {
     @Column(name = "end_date")
     private Date endDate;
 
+    @Column(name = "status")
+    private String status;
+
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "processEntity",
             orphanRemoval = true)
@@ -68,6 +71,14 @@ public class ProcessEntity {
 
     public Date getEndDate(){
         return endDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<TaskEntity> getTask(){

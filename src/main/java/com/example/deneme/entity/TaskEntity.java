@@ -28,6 +28,9 @@ public class TaskEntity {
     @Column(name = "end_date")
     private Date endDate;
 
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne
     @JoinColumn(updatable = false, insertable = false)
     private UserEntity userEntity;
@@ -51,11 +54,11 @@ public class TaskEntity {
     }
 
     public UserEntity getUserEntity() {
-        return null;
+        return userEntity;
     }
 
     public void setUserEntity(UserEntity userEntity) {
-
+        this.userEntity = userEntity;
     }
 
     /*public ProcessEntity getProcess() {
@@ -88,6 +91,14 @@ public class TaskEntity {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
