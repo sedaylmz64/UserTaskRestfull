@@ -61,13 +61,13 @@ public class TaskEntity {
         this.userEntity = userEntity;
     }
 
-    /*public ProcessEntity getProcess() {
+    public ProcessEntity getProcess() {
         return processEntity;
     }
 
     public void setProcess(ProcessEntity processEntity) {
         this.processEntity = processEntity;
-    }*/
+    }
 
     public String getTaskName() {
         return taskName;

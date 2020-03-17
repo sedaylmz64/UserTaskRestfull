@@ -42,7 +42,7 @@ public class ProcessServiceImpl implements ProcessService {
         processEntity.setStartDate(processEntityDetails.getStartDate());
         processEntity.setEndDate(processEntityDetails.getEndDate());
         processEntity.setStatus(processEntityDetails.getStatus());
-        processEntity.setTask(processEntityDetails.getTask());
+        //processEntity.setTask(processEntityDetails.getTask());
 
         ProcessEntity updatedProcessEntity = processRepository.save(processEntity);
 

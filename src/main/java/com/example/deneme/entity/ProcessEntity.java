@@ -29,10 +29,10 @@ public class ProcessEntity {
     @Column(name = "status")
     private String status;
 
-    @OneToMany(cascade = CascadeType.ALL,
+    /*@OneToMany(cascade = CascadeType.ALL,
             mappedBy = "processEntity",
             orphanRemoval = true)
-    private List<TaskEntity> taskEntities = new ArrayList<>();
+    private List<TaskEntity> taskEntities = new ArrayList<>();*/
 
     public ProcessEntity(String processName, Date startDate, Date endDate) {
         this.processName = processName;
@@ -81,12 +81,12 @@ public class ProcessEntity {
         this.status = status;
     }
 
-    public List<TaskEntity> getTask(){
+    /*public List<TaskEntity> getTask(){
         return taskEntities;
     }
 
     public void setTask(List<TaskEntity> taskEntities){
         this.taskEntities = taskEntities;
-    }
+    }*/
 
 }
