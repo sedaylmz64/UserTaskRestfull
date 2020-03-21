@@ -1,5 +1,6 @@
 package com.example.deneme.controller;
 
+import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.service.TaskService;
@@ -35,6 +36,12 @@ public class TaskController {
     public TaskEntity updateTask(@PathVariable(value = "id") int id,
                                  @Valid @RequestBody TaskEntity taskEntityDetails) throws TaskNotFoundException {
         return taskService.updateTask(id, taskEntityDetails);
+
+    }
+
+    @PutMapping("/tasks/{userid}/{taskid}")
+    public TaskEntity assignTask(@PathVariable(value = "userid") int userid,@PathVariable(value = "taskid") int taskid) throws TaskNotFoundException, UserNotFoundException {
+        return taskService.assignTask(userid,taskid);
 
     }
 
