@@ -1,16 +1,13 @@
-package com.example.deneme.entity;
+package com.example.deneme.model.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "process")
 public class ProcessEntity {
 
-    public ProcessEntity(){
-
+    public ProcessEntity() {
     }
 
     @Id
@@ -34,11 +31,24 @@ public class ProcessEntity {
             orphanRemoval = true)
     private List<TaskEntity> taskEntities = new ArrayList<>();*/
 
+    @OneToOne
+    @JoinColumn(updatable = false, insertable = false)
+    private UserEntity userEntity;
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
     public ProcessEntity(String processName, Date startDate, Date endDate) {
         this.processName = processName;
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
 
     public void setId(int id){
         this.id = id;

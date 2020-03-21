@@ -1,8 +1,7 @@
 package com.example.deneme.controller;
 
-import com.example.deneme.entity.TaskEntity;
+import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
-import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

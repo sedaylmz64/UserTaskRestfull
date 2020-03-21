@@ -1,6 +1,6 @@
-package com.example.deneme.serviceImpl;
+package com.example.deneme.service.impl;
 
-import com.example.deneme.entity.UserEntity;
+import com.example.deneme.model.entity.UserEntity;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.UserService;

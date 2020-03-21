@@ -1,6 +1,6 @@
 package com.example.deneme.repositories;
 
-import com.example.deneme.entity.ProcessEntity;
+import com.example.deneme.model.entity.ProcessEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,7 @@
-package com.example.deneme.serviceImpl;
+package com.example.deneme.service.impl;
 
-import com.example.deneme.entity.TaskEntity;
+import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
-import com.example.deneme.repositories.ProcessRepository;
 import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,14 +1,15 @@
 package com.example.deneme.controller;
 
-import com.example.deneme.entity.UserEntity;
+import com.example.deneme.model.dto.RequestDTO;
+import com.example.deneme.model.dto.ResponseDTO;
+import com.example.deneme.model.dto.UserDTO;
+import com.example.deneme.model.entity.UserEntity;
 import com.example.deneme.exception.UserNotFoundException;
-import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,28 +22,34 @@ public class UserController {
         return userService.userList();
     }
 
-    @PostMapping("/users")
-    public UserEntity createUser(@Valid @RequestBody UserEntity userEntity) {
+    /*@PostMapping("/users")
+    public UserDTO createUser(@Valid @RequestBody UserDTO userEntity) {
         return userService.createUser(userEntity);
+    }*/
+
+    @PostMapping("/users")
+    public ResponseDTO<UserDTO> createUser(@RequestDTO(UserDTO.class) @Validated UserEntity userEntity) {
+        return ResponseDTO.accepted().convertTo(userService.createUser(userEntity), UserDTO.class);
     }
 
+
     @GetMapping("/users/{id}")
-    public UserEntity getUserById(@PathVariable(value = "id") int id) throws UserNotFoundException {
-        return userService.getUserById(id);
+    public ResponseDTO<UserDTO> getUserById(@PathVariable(value = "id") int id) throws UserNotFoundException {
+        return ResponseDTO.accepted().convertTo(userService.getUserById(id), UserDTO.class);
     }
 
 
     @PutMapping("/users/{id}")
-    public UserEntity updateUser(@PathVariable(value = "id") int id,
-                                 @Valid @RequestBody UserEntity userEntityDetails) throws UserNotFoundException {
-        return userService.updateUser(id,userEntityDetails);
+    public ResponseDTO<UserDTO> updateUser(@PathVariable(value = "id") int id,
+                                           @RequestDTO(UserDTO.class) @Validated UserEntity userEntityDetails) throws UserNotFoundException {
+        return ResponseDTO.accepted().convertTo(userService.updateUser(id,userEntityDetails),UserDTO.class);
     }
 
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable(value = "id") int id) throws UserNotFoundException {
+    public ResponseDTO<UserDTO> deleteUser(@PathVariable(value = "id") int id) throws UserNotFoundException {
 
-        return userService.deleteUser(id);
+        return ResponseDTO.accepted().convertTo(userService.deleteUser(id),UserDTO.class);
     }
 
 

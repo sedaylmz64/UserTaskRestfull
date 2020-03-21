@@ -1,7 +1,6 @@
 package com.example.deneme.service;
 
-import com.example.deneme.entity.TaskEntity;
-import com.example.deneme.entity.UserEntity;
+import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

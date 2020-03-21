@@ -1,4 +1,4 @@
-package com.example.deneme.entity;
+package com.example.deneme.model.entity;
 
 
 

@@ -1,8 +1,7 @@
-package com.example.deneme.entity;
+package com.example.deneme.model.entity;
 
 
 import javax.persistence.*;
-import java.util.*;
 
 @Entity
 @Table(name = "user")

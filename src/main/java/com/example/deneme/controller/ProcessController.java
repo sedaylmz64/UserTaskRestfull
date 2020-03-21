@@ -1,8 +1,7 @@
 package com.example.deneme.controller;
 
-import com.example.deneme.entity.ProcessEntity;
+import com.example.deneme.model.entity.ProcessEntity;
 import com.example.deneme.exception.ProcessNotFoundException;
-import com.example.deneme.repositories.ProcessRepository;
 import com.example.deneme.service.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
