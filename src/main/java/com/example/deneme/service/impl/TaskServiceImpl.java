@@ -1,12 +1,17 @@
 package com.example.deneme.service.impl;
 
+import com.example.deneme.controller.request.CreateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
+import com.example.deneme.model.converter.CreateTaskRequestConverter;
+import com.example.deneme.model.converter.TaskConverter;
+import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.model.entity.UserEntity;
 import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.TaskService;
+import org.omg.CORBA.TCKind;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,21 +27,26 @@ public class TaskServiceImpl implements TaskService {
     private UserRepository userRepository;
 
     @Override
-    public List<TaskEntity> taskList() {
-        return taskRepository.findAll();
+    public List<TaskDto> taskList() {
+        TaskEntity taskEntity = (TaskEntity) taskRepository.findAll();
+        return (List<TaskDto>) TaskConverter.convert(taskEntity);
     }
 
     @Override
-    public TaskEntity createTask(TaskEntity taskEntity) {return taskRepository.save(taskEntity);}
+    public void createTask(CreateTaskRequest request) {
+        TaskEntity taskEntity = CreateTaskRequestConverter.convert(request);
+        taskRepository.save(taskEntity);}
 
     @Override
-    public TaskEntity getTaskById(int id) throws TaskNotFoundException{
-        return taskRepository.findById(id)
+    public TaskDto getTaskById(int id) throws TaskNotFoundException{
+          TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
+
+          return TaskConverter.convert(taskEntity);
     }
 
     @Override
-    public TaskEntity updateTask(int id, TaskEntity taskEntityDetails)  throws TaskNotFoundException {
+    public TaskDto updateTask(int id, TaskEntity taskEntityDetails)  throws TaskNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
@@ -48,11 +58,11 @@ public class TaskServiceImpl implements TaskService {
 
         TaskEntity updatedTask = taskRepository.save(taskEntity);
 
-        return updatedTask;
+        return TaskConverter.convert(updatedTask);
     }
 
     @Override
-    public TaskEntity assignTask(int userid, int taskid) throws TaskNotFoundException, UserNotFoundException {
+    public TaskDto assignTask(int userid, int taskid) throws TaskNotFoundException, UserNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(taskid)
                 .orElseThrow(() -> new TaskNotFoundException(taskid));
 
@@ -63,17 +73,15 @@ public class TaskServiceImpl implements TaskService {
 
         TaskEntity updatedTask = taskRepository.save(taskEntity);
 
-        return updatedTask;
+        return TaskConverter.convert(updatedTask);
     }
 
     @Override
-    public ResponseEntity<?> deleteTask(int id) throws TaskNotFoundException {
+    public void deleteTask(int id) throws TaskNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
         taskRepository.delete(taskEntity);
-
-        return ResponseEntity.ok().build();
     }
 
 

@@ -1,5 +1,9 @@
 package com.example.deneme.service.impl;
 
+import com.example.deneme.controller.request.CreateUserRequest;
+import com.example.deneme.model.converter.CreateUserRequestConverter;
+import com.example.deneme.model.converter.UserConverter;
+import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.model.entity.UserEntity;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.repositories.UserRepository;
@@ -15,24 +19,35 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
+    /*@Override
     public List<UserEntity> userList() {
         return userRepository.findAll();
+    }*/
+
+    @Override
+    public List<UserDto> userList() {
+        UserEntity userEntity = (UserEntity) userRepository.findAll();
+
+        return (List<UserDto>) UserConverter.convert(userEntity);
+    }
+
+
+    @Override
+    public void createUser(CreateUserRequest request) {
+        UserEntity userEntity = CreateUserRequestConverter.convert(request);
+        userRepository.save(userEntity);
     }
 
     @Override
-    public UserEntity createUser(UserEntity userEntity) {
-        return userRepository.save(userEntity);
-    }
-
-    @Override
-    public UserEntity getUserById(int id) throws UserNotFoundException {
-        return userRepository.findById(id)
+    public UserDto getUserById(int id) throws UserNotFoundException {
+        UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+
+        return UserConverter.convert(userEntity);
     }
 
     @Override
-    public UserEntity updateUser(int id, UserEntity userEntityDetails)  throws UserNotFoundException{
+    public UserDto updateUser(int id, UserEntity userEntityDetails)  throws UserNotFoundException{
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
@@ -43,16 +58,14 @@ public class UserServiceImpl implements UserService {
 
         UserEntity updateduser = userRepository.save(userEntity);
 
-        return updateduser;
+        return UserConverter.convert(updateduser);
     }
 
     @Override
-    public ResponseEntity<?> deleteUser(int id)  throws UserNotFoundException{
+    public void deleteUser(int id)  throws UserNotFoundException{
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
         userRepository.delete(userEntity);
-
-        return ResponseEntity.ok().build();
     }
 }

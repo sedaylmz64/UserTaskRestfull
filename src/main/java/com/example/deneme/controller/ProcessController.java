@@ -1,5 +1,7 @@
 package com.example.deneme.controller;
 
+import com.example.deneme.controller.request.CreateProcessRequest;
+import com.example.deneme.model.dto.ProcessDto;
 import com.example.deneme.model.entity.ProcessEntity;
 import com.example.deneme.exception.ProcessNotFoundException;
 import com.example.deneme.service.ProcessService;
@@ -16,30 +18,30 @@ public class ProcessController {
     private ProcessService processService;
 
     @GetMapping("/processes")
-    public List<ProcessEntity> processList(){
+    public List<ProcessDto> processList(){
         return processService.processList();
     }
 
     @PostMapping("/processes")
-    public ProcessEntity createProcess(@Valid @RequestBody ProcessEntity processEntity) {
-        return processService.createProcess(processEntity);
+    public void createProcess(@RequestBody CreateProcessRequest request) {
+        processService.createProcess(request);
     }
 
     @GetMapping("/processes/{id}")
-    public ProcessEntity getProcessById(@PathVariable(value = "id") int id) throws ProcessNotFoundException {
+    public ProcessDto getProcessById(@PathVariable(value = "id") int id) throws ProcessNotFoundException {
         return processService.getProcessById(id);
     }
 
     @PutMapping("/processes/{id}")
-    public ProcessEntity updateProcess(@PathVariable(value = "id") int id,
+    public ProcessDto updateProcess(@PathVariable(value = "id") int id,
                                          @Valid @RequestBody ProcessEntity processDetails) throws ProcessNotFoundException {
         return processService.updateProcess(id, processDetails);
     }
 
 
     @DeleteMapping("/processes/{id}")
-    public ResponseEntity<?> deleteProcess(@PathVariable(value = "id") int id) throws ProcessNotFoundException {
-        return processService.deleteProcess(id);
+    public void deleteProcess(@PathVariable(value = "id") int id) throws ProcessNotFoundException {
+        processService.deleteProcess(id);
     }
 
 

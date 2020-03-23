@@ -1,5 +1,9 @@
 package com.example.deneme.service.impl;
 
+import com.example.deneme.controller.request.CreateProcessRequest;
+import com.example.deneme.model.converter.CreateProcessRequestConverter;
+import com.example.deneme.model.converter.ProcessConverter;
+import com.example.deneme.model.dto.ProcessDto;
 import com.example.deneme.model.entity.ProcessEntity;
 import com.example.deneme.exception.ProcessNotFoundException;
 import com.example.deneme.repositories.ProcessRepository;
@@ -16,25 +20,28 @@ public class ProcessServiceImpl implements ProcessService {
     private ProcessRepository processRepository;
 
     @Override
-    public List<ProcessEntity> processList() {
-        return processRepository.findAll();
+    public List<ProcessDto> processList() {
+        ProcessEntity processEntity = (ProcessEntity) processRepository.findAll();
+
+        return (List<ProcessDto>) ProcessConverter.convert(processEntity);
     }
 
     @Override
-    public ProcessEntity createProcess(ProcessEntity processEntity) {
-        return processRepository.save(processEntity);
+    public void createProcess(CreateProcessRequest request) {
+        ProcessEntity processEntity = CreateProcessRequestConverter.convert(request);
+        processRepository.save(processEntity);
     }
 
     @Override
-    public ProcessEntity getProcessById(int id) throws ProcessNotFoundException {
+    public ProcessDto getProcessById(int id) throws ProcessNotFoundException {
         ProcessEntity processEntity = processRepository.findById(id)
                 .orElseThrow(() -> new ProcessNotFoundException(id));
 
-        return processEntity;
+        return ProcessConverter.convert(processEntity);
     }
 
     @Override
-    public ProcessEntity updateProcess(int id, ProcessEntity processEntityDetails) throws ProcessNotFoundException {
+    public ProcessDto updateProcess(int id, ProcessEntity processEntityDetails) throws ProcessNotFoundException {
         ProcessEntity processEntity = processRepository.findById(id)
                 .orElseThrow(() -> new ProcessNotFoundException(id));
 
@@ -46,16 +53,14 @@ public class ProcessServiceImpl implements ProcessService {
 
         ProcessEntity updatedProcessEntity = processRepository.save(processEntity);
 
-        return updatedProcessEntity;
+        return ProcessConverter.convert(updatedProcessEntity);
     }
 
     @Override
-    public ResponseEntity<?> deleteProcess(int id) throws ProcessNotFoundException{
+    public void deleteProcess(int id) throws ProcessNotFoundException{
         ProcessEntity processEntity = processRepository.findById(id)
                 .orElseThrow(() -> new ProcessNotFoundException(id));
 
         processRepository.delete(processEntity);
-
-        return ResponseEntity.ok().build();
     }
 }

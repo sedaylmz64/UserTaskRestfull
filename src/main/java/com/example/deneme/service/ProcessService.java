@@ -1,5 +1,7 @@
 package com.example.deneme.service;
 
+import com.example.deneme.controller.request.CreateProcessRequest;
+import com.example.deneme.model.dto.ProcessDto;
 import com.example.deneme.model.entity.ProcessEntity;
 import com.example.deneme.exception.ProcessNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +11,9 @@ import java.util.List;
 
 @Component
 public interface ProcessService {
-    public List<ProcessEntity> processList();
-    public ProcessEntity createProcess(ProcessEntity processEntity);
-    public ProcessEntity getProcessById(int id) throws ProcessNotFoundException;
-    public ProcessEntity updateProcess(int id, ProcessEntity processEntityDetails) throws ProcessNotFoundException;
-    public ResponseEntity<?> deleteProcess(int id) throws ProcessNotFoundException;
+    List<ProcessDto> processList();
+    void createProcess(CreateProcessRequest request);
+    ProcessDto getProcessById(int id) throws ProcessNotFoundException;
+    ProcessDto updateProcess(int id, ProcessEntity processEntityDetails) throws ProcessNotFoundException;
+    void deleteProcess(int id) throws ProcessNotFoundException;
 }

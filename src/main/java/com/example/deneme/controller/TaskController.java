@@ -1,6 +1,9 @@
 package com.example.deneme.controller;
 
+import com.example.deneme.controller.request.CreateTaskRequest;
+import com.example.deneme.controller.request.CreateUserRequest;
 import com.example.deneme.exception.UserNotFoundException;
+import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.service.TaskService;
@@ -17,38 +20,38 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping("/tasks")
-    public List<TaskEntity> taskList(){
+    public List<TaskDto> taskList(){
         return taskService.taskList();
     }
 
     @PostMapping("/tasks")
-    public TaskEntity createTask(@Valid @RequestBody TaskEntity taskEntity) {
-        return taskService.createTask(taskEntity);
+    public void createTask(@RequestBody CreateTaskRequest request) {
+        taskService.createTask(request);
     }
 
     @GetMapping("/tasks/{id}")
-    public TaskEntity getTaskById(@PathVariable(value = "id") int id) throws TaskNotFoundException {
+    public TaskDto getTaskById(@PathVariable(value = "id") int id) throws TaskNotFoundException {
         return taskService.getTaskById(id);
     }
 
 
     @PutMapping("/tasks/{id}")
-    public TaskEntity updateTask(@PathVariable(value = "id") int id,
+    public TaskDto updateTask(@PathVariable(value = "id") int id,
                                  @Valid @RequestBody TaskEntity taskEntityDetails) throws TaskNotFoundException {
         return taskService.updateTask(id, taskEntityDetails);
 
     }
 
     @PutMapping("/tasks/{userid}/{taskid}")
-    public TaskEntity assignTask(@PathVariable(value = "userid") int userid,@PathVariable(value = "taskid") int taskid) throws TaskNotFoundException, UserNotFoundException {
+    public TaskDto assignTask(@PathVariable(value = "userid") int userid,@PathVariable(value = "taskid") int taskid) throws TaskNotFoundException, UserNotFoundException {
         return taskService.assignTask(userid,taskid);
 
     }
 
 
     @DeleteMapping("/tasks/{id}")
-    public ResponseEntity<?> deleteTask(@PathVariable(value = "id") int id) throws TaskNotFoundException {
-        return taskService.deleteTask(id);
+    public void deleteTask(@PathVariable(value = "id") int id) throws TaskNotFoundException {
+        taskService.deleteTask(id);
     }
     
 }
