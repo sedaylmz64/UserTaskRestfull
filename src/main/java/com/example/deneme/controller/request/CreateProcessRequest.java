@@ -1,5 +1,6 @@
 package com.example.deneme.controller.request;
 
+import java.util.Collections;
 import java.util.Date;
 
 public class CreateProcessRequest {
@@ -7,6 +8,16 @@ public class CreateProcessRequest {
     private Date startDate;
     private Date endDate;
     private String status;
+    private int userId;
+    private int taskId;
+
+    public Iterable<Integer> getTaskId() {
+        return Collections.singleton(taskId);
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
 
     public String getProcessName() {
         return processName;
@@ -38,5 +49,13 @@ public class CreateProcessRequest {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

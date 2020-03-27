@@ -8,6 +8,7 @@ import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.model.entity.UserEntity;
+import com.example.deneme.model.enums.TaskStatus;
 import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.TaskService;
@@ -28,8 +29,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDto> taskList() {
-        TaskEntity taskEntity = (TaskEntity) taskRepository.findAll();
-        return (List<TaskDto>) TaskConverter.convert(taskEntity);
+        List<TaskEntity> taskEntities = taskRepository.findAll();
+        return TaskConverter.convert(taskEntities);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class TaskServiceImpl implements TaskService {
         taskEntity.setEndDate(taskEntityDetails.getEndDate());
         taskEntity.setStartDate(taskEntityDetails.getStartDate());
         taskEntity.setUserEntity(taskEntityDetails.getUserEntity());
-        taskEntity.setStatus("Done");
+        taskEntity.setStatus((TaskStatus.DONE).toString());
 
         TaskEntity updatedTask = taskRepository.save(taskEntity);
 

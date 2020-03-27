@@ -26,9 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> userList() {
-        UserEntity userEntity = (UserEntity) userRepository.findAll();
-
-        return (List<UserDto>) UserConverter.convert(userEntity);
+        List<UserEntity> userEntities = userRepository.findAll();
+        return UserConverter.convert(userEntities);
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.deneme.controller;
 
 import com.example.deneme.controller.request.CreateProcessRequest;
+import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.dto.ProcessDto;
 import com.example.deneme.model.entity.ProcessEntity;
 import com.example.deneme.exception.ProcessNotFoundException;
@@ -23,7 +24,7 @@ public class ProcessController {
     }
 
     @PostMapping("/processes")
-    public void createProcess(@RequestBody CreateProcessRequest request) {
+    public void createProcess(@RequestBody CreateProcessRequest request) throws UserNotFoundException {
         processService.createProcess(request);
     }
 
@@ -44,5 +45,15 @@ public class ProcessController {
         processService.deleteProcess(id);
     }
 
+    @PutMapping("/processes/{userid}/{processid}")
+    public ProcessDto assignProcess(@PathVariable(value = "userid") int userid, @PathVariable(value = "processid")
+            int processid) throws ProcessNotFoundException, UserNotFoundException {
+        return processService.assignProcess(userid,processid);
+    }
+
+    @PutMapping("/processes/status/{processid}")
+    public void assignStatus(CreateProcessRequest request , @PathVariable(value = "processid") int processid) throws ProcessNotFoundException {
+        processService.assignStatus(request,processid);
+    }
 
 }
