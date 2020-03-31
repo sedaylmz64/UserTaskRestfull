@@ -1,6 +1,7 @@
 package com.example.deneme.service.impl;
 
 import com.example.deneme.controller.request.CreateUserRequest;
+import com.example.deneme.controller.request.UpdateUserRequest;
 import com.example.deneme.model.converter.CreateUserRequestConverter;
 import com.example.deneme.model.converter.UserConverter;
 import com.example.deneme.model.dto.UserDto;
@@ -46,14 +47,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(int id, UserEntity userEntityDetails)  throws UserNotFoundException{
+    public UserDto updateUser(int id, UpdateUserRequest request)  throws UserNotFoundException{
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
-        userEntity.setUserName(userEntityDetails.getUserName());
-        userEntity.setPassword(userEntityDetails.getPassword());
-        userEntity.setRole(userEntityDetails.getRole());
-        //userEntity.setTaskEntities(userEntityDetails.getTaskEntities());
+        if(request.getUserName() != null){
+            userEntity.setUserName(request.getUserName());
+        }
+
+        if(request.getRole() != null){
+            userEntity.setRole(request.getRole());
+        }
+
+        if(request.getPassword() != null){
+            userEntity.setPassword(request.getPassword());
+        }
 
         UserEntity updateduser = userRepository.save(userEntity);
 

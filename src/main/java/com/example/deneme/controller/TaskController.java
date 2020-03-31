@@ -2,6 +2,7 @@ package com.example.deneme.controller;
 
 import com.example.deneme.controller.request.CreateTaskRequest;
 import com.example.deneme.controller.request.CreateUserRequest;
+import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.entity.TaskEntity;
@@ -37,8 +38,8 @@ public class TaskController {
 
     @PutMapping("/tasks/{id}")
     public TaskDto updateTask(@PathVariable(value = "id") int id,
-                                 @Valid @RequestBody TaskEntity taskEntityDetails) throws TaskNotFoundException {
-        return taskService.updateTask(id, taskEntityDetails);
+                              @Valid @RequestBody UpdateTaskRequest request) throws TaskNotFoundException {
+        return taskService.updateTask(id, request);
 
     }
 
@@ -50,8 +51,8 @@ public class TaskController {
 
 
     @DeleteMapping("/tasks/{id}")
-    public void deleteTask(@PathVariable(value = "id") int id) throws TaskNotFoundException {
-        taskService.deleteTask(id);
+    public TaskDto deleteTask(@PathVariable(value = "id") int id) throws TaskNotFoundException {
+        return taskService.deleteTask(id);
     }
     
 }

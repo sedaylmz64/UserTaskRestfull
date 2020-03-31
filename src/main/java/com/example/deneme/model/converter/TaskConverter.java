@@ -22,6 +22,9 @@ public class TaskConverter {
         taskDto.setEndDate(taskEntity.getEndDate());
         taskDto.setStatus(taskEntity.getStatus());
         taskDto.setTaskId(taskEntity.getId());
+        taskDto.setDeleted(taskEntity.isDeleted());
+        taskDto.setDescription(taskEntity.getDescription());
+        taskDto.setUserEntity(taskEntity.getUserEntity());
 
         return taskDto;
     }

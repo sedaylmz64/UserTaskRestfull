@@ -1,6 +1,7 @@
 package com.example.deneme.service;
 
 import com.example.deneme.controller.request.CreateTaskRequest;
+import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.entity.TaskEntity;
@@ -15,8 +16,8 @@ public interface TaskService {
     List<TaskDto> taskList();
     void createTask(CreateTaskRequest request);
     TaskDto getTaskById(int id) throws TaskNotFoundException;
-    TaskDto updateTask(int id, TaskEntity taskEntityDetails) throws TaskNotFoundException;
-    void deleteTask(int id) throws TaskNotFoundException;
+    TaskDto updateTask(int id, UpdateTaskRequest request) throws TaskNotFoundException;
+    TaskDto deleteTask(int id) throws TaskNotFoundException;
     TaskDto assignTask(int userid, int taskid) throws TaskNotFoundException, UserNotFoundException;
 
 }

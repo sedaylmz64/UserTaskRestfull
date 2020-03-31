@@ -2,30 +2,22 @@ package com.example.deneme.controller.request;
 
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.model.entity.UserEntity;
+import com.example.deneme.model.enums.ProcessStatus;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CreateProcessRequest {
+public class UpdateProcessRequest {
     private String processName;
     private Date startDate;
     private Date endDate;
-    private String status;
+    private ProcessStatus processStatus;
     private int userId;
     private int taskId;
     private Boolean deleted;
-    private List<TaskEntity> taskEntities;
     private UserEntity userEntity;
-
-
-    public Iterable<Integer> getTaskId() {
-        return Collections.singleton(taskId);
-    }
-
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
+    private List<TaskEntity> taskEntities = new ArrayList<>();
 
     public String getProcessName() {
         return processName;
@@ -51,12 +43,12 @@ public class CreateProcessRequest {
         this.endDate = endDate;
     }
 
-    public String getStatus() {
-        return status;
+    public ProcessStatus getProcessStatus() {
+        return processStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setProcessStatus(ProcessStatus processStatus) {
+        this.processStatus = processStatus;
     }
 
     public int getUserId() {
@@ -67,6 +59,14 @@ public class CreateProcessRequest {
         this.userId = userId;
     }
 
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
     public Boolean getDeleted() {
         return deleted;
     }
@@ -75,19 +75,19 @@ public class CreateProcessRequest {
         this.deleted = deleted;
     }
 
-    public List<TaskEntity> getTaskEntities() {
-        return taskEntities;
-    }
-
-    public void setTaskEntities(List<TaskEntity> taskEntities) {
-        this.taskEntities = taskEntities;
-    }
-
     public UserEntity getUserEntity() {
         return userEntity;
     }
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
+    }
+
+    public List<TaskEntity> getTaskEntities() {
+        return taskEntities;
+    }
+
+    public void setTaskEntities(List<TaskEntity> taskEntities) {
+        this.taskEntities = taskEntities;
     }
 }

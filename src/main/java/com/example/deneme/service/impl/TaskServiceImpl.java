@@ -1,6 +1,7 @@
 package com.example.deneme.service.impl;
 
 import com.example.deneme.controller.request.CreateTaskRequest;
+import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.converter.CreateTaskRequestConverter;
 import com.example.deneme.model.converter.TaskConverter;
@@ -30,6 +31,12 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDto> taskList() {
         List<TaskEntity> taskEntities = taskRepository.findAll();
+
+        for(TaskEntity list : taskEntities){
+            if(list.isDeleted())
+                return null;
+        }
+
         return TaskConverter.convert(taskEntities);
     }
 
@@ -43,19 +50,36 @@ public class TaskServiceImpl implements TaskService {
           TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
+          if(taskEntity.isDeleted())
+              return null;
+
           return TaskConverter.convert(taskEntity);
     }
 
     @Override
-    public TaskDto updateTask(int id, TaskEntity taskEntityDetails)  throws TaskNotFoundException {
+    public TaskDto updateTask(int id, UpdateTaskRequest request)  throws TaskNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
-        taskEntity.setTaskName(taskEntityDetails.getTaskName());
-        taskEntity.setEndDate(taskEntityDetails.getEndDate());
-        taskEntity.setStartDate(taskEntityDetails.getStartDate());
-        taskEntity.setUserEntity(taskEntityDetails.getUserEntity());
-        taskEntity.setStatus((TaskStatus.DONE).toString());
+        if(request.getTaskName() != null){
+            taskEntity.setTaskName(request.getTaskName());
+        }
+
+        if(request.getStartDate() != null){
+            taskEntity.setStartDate(request.getStartDate());
+        }
+
+        if(request.getEndDate() != null){
+            taskEntity.setEndDate(request.getEndDate());
+        }
+
+        if(request.getStatus() != null){
+            taskEntity.setStatus(request.getStatus());
+        }
+
+        if(request.getUserEntity() != null){
+            taskEntity.setUserEntity(request.getUserEntity());
+        }
 
         TaskEntity updatedTask = taskRepository.save(taskEntity);
 
@@ -78,11 +102,14 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void deleteTask(int id) throws TaskNotFoundException {
+    public TaskDto deleteTask(int id) throws TaskNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
-        taskRepository.delete(taskEntity);
+        taskEntity.setDeleted(true);
+
+        TaskEntity updatedTask = taskRepository.save(taskEntity);
+        return TaskConverter.convert(updatedTask);
     }
 
 

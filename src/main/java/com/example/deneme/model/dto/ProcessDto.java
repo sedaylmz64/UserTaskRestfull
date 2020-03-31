@@ -1,8 +1,12 @@
 package com.example.deneme.model.dto;
 
+import com.example.deneme.model.entity.TaskEntity;
+import com.example.deneme.model.entity.UserEntity;
+
 import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class ProcessDto implements Serializable {
@@ -11,6 +15,9 @@ public class ProcessDto implements Serializable {
     private Date startDate;
     private Date endDate;
     private String status;
+    private Boolean deleted;
+    private List<TaskEntity> taskEntities;
+    private UserEntity userEntity;
 
     public int getProcessId() {
         return processId;
@@ -50,6 +57,30 @@ public class ProcessDto implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public List<TaskEntity> getTaskEntities() {
+        return taskEntities;
+    }
+
+    public void setTaskEntities(List<TaskEntity> taskEntities) {
+        this.taskEntities = taskEntities;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     @Override

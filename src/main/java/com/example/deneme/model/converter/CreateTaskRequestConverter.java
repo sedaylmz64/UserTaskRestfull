@@ -11,6 +11,9 @@ public class CreateTaskRequestConverter {
         taskEntity.setStartDate(request.getStartDate());
         taskEntity.setEndDate(request.getEndDate());
         taskEntity.setStatus(request.getStatus());
+        taskEntity.setDeleted(request.getDeleted());
+        taskEntity.setDescription(request.getDescription());
+        taskEntity.setUserEntity(request.getUserEntity());
 
         return taskEntity;
     }

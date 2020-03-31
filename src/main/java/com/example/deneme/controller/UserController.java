@@ -1,6 +1,7 @@
 package com.example.deneme.controller;
 
 import com.example.deneme.controller.request.CreateUserRequest;
+import com.example.deneme.controller.request.UpdateUserRequest;
 import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.model.entity.UserEntity;
 import com.example.deneme.exception.UserNotFoundException;
@@ -40,8 +41,8 @@ public class UserController {
 
     @PutMapping("/users/{id}")
     public UserDto updateUser(@PathVariable(value = "id") int id,
-                                            @Validated UserEntity userEntityDetails) throws UserNotFoundException {
-        return userService.updateUser(id,userEntityDetails);
+                                            @Validated UpdateUserRequest request) throws UserNotFoundException {
+        return userService.updateUser(id,request);
     }
 
 

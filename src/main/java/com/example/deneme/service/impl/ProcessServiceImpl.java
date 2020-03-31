@@ -1,6 +1,9 @@
 package com.example.deneme.service.impl;
 
 import com.example.deneme.controller.request.CreateProcessRequest;
+import com.example.deneme.controller.request.CreateTaskRequest;
+import com.example.deneme.controller.request.CreateUserRequest;
+import com.example.deneme.controller.request.UpdateProcessRequest;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.converter.CreateProcessRequestConverter;
@@ -39,6 +42,12 @@ public class ProcessServiceImpl implements ProcessService {
     @Override
     public List<ProcessDto> processList() {
         List<ProcessEntity> processEntities = processRepository.findAll();
+
+        for(ProcessEntity list : processEntities){
+            if(list.isDeleted())
+                return null;
+        }
+
         return ProcessConverter.convert(processEntities);
     }
 
@@ -56,19 +65,46 @@ public class ProcessServiceImpl implements ProcessService {
         ProcessEntity processEntity = processRepository.findById(id)
                 .orElseThrow(() -> new ProcessNotFoundException(id));
 
+        if(processEntity.isDeleted())
+            return null;
+
         return ProcessConverter.convert(processEntity);
     }
 
     @Override
-    public ProcessDto updateProcess(int id, ProcessEntity processEntityDetails) throws ProcessNotFoundException {
+    public ProcessDto updateProcess(int id, UpdateProcessRequest request) throws ProcessNotFoundException {
         ProcessEntity processEntity = processRepository.findById(id)
                 .orElseThrow(() -> new ProcessNotFoundException(id));
 
-        processEntity.setProcessName(processEntityDetails.getProcessName());
-        processEntity.setStartDate(processEntityDetails.getStartDate());
-        processEntity.setEndDate(processEntityDetails.getEndDate());
-        processEntity.setStatus(processEntityDetails.getStatus());
-        //processEntity.setTask(processEntityDetails.getTask());
+
+        if(request.getProcessName() != null){
+            processEntity.setProcessName(request.getProcessName());
+        }
+
+        if(request.getStartDate() != null){
+            processEntity.setStartDate(request.getStartDate());
+        }
+
+        if(request.getEndDate() != null){
+            processEntity.setEndDate(request.getEndDate());
+        }
+
+        if(request.getProcessStatus() != null){
+            processEntity.setStatus(String.valueOf(request.getProcessStatus()));
+        }
+
+        if(request.getDeleted() != null){
+            processEntity.setDeleted(request.getDeleted());
+        }
+
+        if(request.getUserEntity() != null){
+            processEntity.setUserEntity(request.getUserEntity());
+        }
+
+        if(request.getTaskEntities() != null){
+            processEntity.setTaskEntities(request.getTaskEntities());
+        }
+
 
         ProcessEntity updatedProcessEntity = processRepository.save(processEntity);
 
@@ -76,11 +112,20 @@ public class ProcessServiceImpl implements ProcessService {
     }
 
     @Override
-    public void deleteProcess(int id) throws ProcessNotFoundException{
+    public ProcessDto deleteProcess(int id) throws ProcessNotFoundException{
         ProcessEntity processEntity = processRepository.findById(id)
                 .orElseThrow(() -> new ProcessNotFoundException(id));
 
-        processRepository.delete(processEntity);
+        List<TaskDto> taskDtoList = TaskConverter.convert(processEntity.getTaskEntities());
+
+        processEntity.setDeleted(true);
+
+        for(TaskDto taskDto : taskDtoList){
+            taskDto.setDeleted(true);
+        }
+
+        ProcessEntity updatedProcessEntity = processRepository.save(processEntity);
+        return ProcessConverter.convert(updatedProcessEntity);
     }
 
     @Override

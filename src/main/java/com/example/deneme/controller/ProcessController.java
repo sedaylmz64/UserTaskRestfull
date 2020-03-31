@@ -1,6 +1,7 @@
 package com.example.deneme.controller;
 
 import com.example.deneme.controller.request.CreateProcessRequest;
+import com.example.deneme.controller.request.UpdateProcessRequest;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.dto.ProcessDto;
 import com.example.deneme.model.entity.ProcessEntity;
@@ -35,14 +36,14 @@ public class ProcessController {
 
     @PutMapping("/processes/{id}")
     public ProcessDto updateProcess(@PathVariable(value = "id") int id,
-                                         @Valid @RequestBody ProcessEntity processDetails) throws ProcessNotFoundException {
-        return processService.updateProcess(id, processDetails);
+                                         @Valid @RequestBody UpdateProcessRequest request) throws ProcessNotFoundException {
+        return processService.updateProcess(id, request);
     }
 
 
     @DeleteMapping("/processes/{id}")
-    public void deleteProcess(@PathVariable(value = "id") int id) throws ProcessNotFoundException {
-        processService.deleteProcess(id);
+    public ProcessDto deleteProcess(@PathVariable(value = "id") int id) throws ProcessNotFoundException {
+        return processService.deleteProcess(id);
     }
 
     @PutMapping("/processes/{userid}/{processid}")

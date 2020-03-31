@@ -4,7 +4,7 @@ import com.example.deneme.model.entity.UserEntity;
 
 import java.util.Date;
 
-public class CreateTaskRequest {
+public class UpdateTaskRequest {
     private String taskName;
     private Date startDate;
     private Date endDate;
@@ -69,3 +69,4 @@ public class CreateTaskRequest {
         this.userEntity = userEntity;
     }
 }
+
