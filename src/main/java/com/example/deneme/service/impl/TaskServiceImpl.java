@@ -5,22 +5,21 @@ import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.converter.CreateTaskRequestConverter;
 import com.example.deneme.model.converter.TaskConverter;
+import com.example.deneme.model.converter.UserEntityConverter;
 import com.example.deneme.model.dto.TaskDto;
+import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.model.entity.UserEntity;
-import com.example.deneme.model.enums.TaskStatus;
 import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.TaskService;
-import org.omg.CORBA.TCKind;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("taskServiceImpl")
+@Service
 public class TaskServiceImpl implements TaskService {
 
     @Autowired
@@ -34,7 +33,7 @@ public class TaskServiceImpl implements TaskService {
 
         for(TaskEntity list : taskEntities){
             if(list.isDeleted())
-                return null;
+                taskEntities.remove(list);
         }
 
         return TaskConverter.convert(taskEntities);
@@ -57,34 +56,21 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDto updateTask(int id, UpdateTaskRequest request)  throws TaskNotFoundException {
+    public TaskDto updateTask(int id, UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
-        if(request.getTaskName() != null){
-            taskEntity.setTaskName(request.getTaskName());
-        }
+        UserServiceImpl userService = new UserServiceImpl();
+        UserDto userDto = userService.getUserById(request.getUserId());
 
-        if(request.getStartDate() != null){
-            taskEntity.setStartDate(request.getStartDate());
-        }
+        UserEntity userEntity = UserEntityConverter.convert(userDto);
 
-        if(request.getEndDate() != null){
-            taskEntity.setEndDate(request.getEndDate());
-        }
-
-        if(request.getStatus() != null){
-            taskEntity.setStatus(request.getStatus());
-        }
-
-        if(request.getUserEntity() != null){
-            taskEntity.setUserEntity(request.getUserEntity());
-        }
+        prepareTaskEntity(request,taskEntity,userEntity);
 
         TaskEntity updatedTask = taskRepository.save(taskEntity);
-
         return TaskConverter.convert(updatedTask);
     }
+
 
     @Override
     public TaskDto assignTask(int userid, int taskid) throws TaskNotFoundException, UserNotFoundException {
@@ -112,5 +98,22 @@ public class TaskServiceImpl implements TaskService {
         return TaskConverter.convert(updatedTask);
     }
 
+    private void prepareTaskEntity(UpdateTaskRequest request, TaskEntity taskEntity, UserEntity userEntity) {
+        if(request.getTaskName() != null){
+            taskEntity.setTaskName(request.getTaskName());
+        }
+
+        if(request.getStatus() != null){
+            taskEntity.setStatus(String.valueOf(request.getStatus()));
+        }
+
+        if(request.getDescription() != null){
+            taskEntity.setDescription(request.getDescription());
+        }
+
+        if(request.getUserId() != 0){
+            taskEntity.setUserEntity(userEntity);
+        }
+    }
 
 }

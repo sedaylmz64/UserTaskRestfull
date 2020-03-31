@@ -1,17 +1,14 @@
 package com.example.deneme.controller.request;
 
-import com.example.deneme.model.entity.UserEntity;
+import com.example.deneme.model.enums.TaskStatus;
 
-import java.util.Date;
 
 public class UpdateTaskRequest {
     private String taskName;
-    private Date startDate;
-    private Date endDate;
-    private String status;
-    private Boolean deleted;
+    private TaskStatus status;
     private String description;
-    private UserEntity userEntity;
+    private int userId;
+
 
     public String getTaskName() {
         return taskName;
@@ -19,38 +16,6 @@ public class UpdateTaskRequest {
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
     }
 
     public String getDescription() {
@@ -61,12 +26,20 @@ public class UpdateTaskRequest {
         this.description = description;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public TaskStatus getStatus() {
+        return status;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
 

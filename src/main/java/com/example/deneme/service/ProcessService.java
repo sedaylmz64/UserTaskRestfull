@@ -17,7 +17,7 @@ public interface ProcessService {
     List<ProcessDto> processList();
     void createProcess(CreateProcessRequest request) throws UserNotFoundException;
     ProcessDto getProcessById(int id) throws ProcessNotFoundException;
-    ProcessDto updateProcess(int id, UpdateProcessRequest request) throws ProcessNotFoundException;
+    ProcessDto updateProcess(int id, UpdateProcessRequest request) throws ProcessNotFoundException, UserNotFoundException;
     ProcessDto deleteProcess(int id) throws ProcessNotFoundException;
     ProcessDto assignProcess(int userid, int processid) throws ProcessNotFoundException,UserNotFoundException;
     void assignStatus(CreateProcessRequest request, int processid) throws ProcessNotFoundException;

@@ -6,12 +6,10 @@ import com.example.deneme.controller.request.CreateUserRequest;
 import com.example.deneme.controller.request.UpdateProcessRequest;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.exception.UserNotFoundException;
-import com.example.deneme.model.converter.CreateProcessRequestConverter;
-import com.example.deneme.model.converter.CreateUserRequestConverter;
-import com.example.deneme.model.converter.ProcessConverter;
-import com.example.deneme.model.converter.TaskConverter;
+import com.example.deneme.model.converter.*;
 import com.example.deneme.model.dto.ProcessDto;
 import com.example.deneme.model.dto.TaskDto;
+import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.model.entity.ProcessEntity;
 import com.example.deneme.exception.ProcessNotFoundException;
 import com.example.deneme.model.entity.TaskEntity;
@@ -30,7 +28,7 @@ import java.util.List;
 
 import static java.lang.String.valueOf;
 
-@Service("processServiceImpl")
+@Service
 public class ProcessServiceImpl implements ProcessService {
     @Autowired
     private ProcessRepository processRepository;
@@ -45,7 +43,7 @@ public class ProcessServiceImpl implements ProcessService {
 
         for(ProcessEntity list : processEntities){
             if(list.isDeleted())
-                return null;
+                processEntities.remove(list);
         }
 
         return ProcessConverter.convert(processEntities);
@@ -72,44 +70,22 @@ public class ProcessServiceImpl implements ProcessService {
     }
 
     @Override
-    public ProcessDto updateProcess(int id, UpdateProcessRequest request) throws ProcessNotFoundException {
+    public ProcessDto updateProcess(int id, UpdateProcessRequest request) throws ProcessNotFoundException, UserNotFoundException {
         ProcessEntity processEntity = processRepository.findById(id)
                 .orElseThrow(() -> new ProcessNotFoundException(id));
 
+        UserServiceImpl userService = new UserServiceImpl();
+        UserDto userDto = userService.getUserById(request.getUserId());
 
-        if(request.getProcessName() != null){
-            processEntity.setProcessName(request.getProcessName());
-        }
+        UserEntity userEntity = UserEntityConverter.convert(userDto);
 
-        if(request.getStartDate() != null){
-            processEntity.setStartDate(request.getStartDate());
-        }
-
-        if(request.getEndDate() != null){
-            processEntity.setEndDate(request.getEndDate());
-        }
-
-        if(request.getProcessStatus() != null){
-            processEntity.setStatus(String.valueOf(request.getProcessStatus()));
-        }
-
-        if(request.getDeleted() != null){
-            processEntity.setDeleted(request.getDeleted());
-        }
-
-        if(request.getUserEntity() != null){
-            processEntity.setUserEntity(request.getUserEntity());
-        }
-
-        if(request.getTaskEntities() != null){
-            processEntity.setTaskEntities(request.getTaskEntities());
-        }
-
+        prepareProcessEntity(request,processEntity,userEntity);
 
         ProcessEntity updatedProcessEntity = processRepository.save(processEntity);
 
         return ProcessConverter.convert(updatedProcessEntity);
     }
+
 
     @Override
     public ProcessDto deleteProcess(int id) throws ProcessNotFoundException{
@@ -120,9 +96,9 @@ public class ProcessServiceImpl implements ProcessService {
 
         processEntity.setDeleted(true);
 
-        for(TaskDto taskDto : taskDtoList){
-            taskDto.setDeleted(true);
-        }
+        taskDtoList.stream().forEach(taskDto -> taskDto.setDeleted(true));
+
+        //for(TaskDto taskDto : taskDtoList){ taskDto.setDeleted(true);}
 
         ProcessEntity updatedProcessEntity = processRepository.save(processEntity);
         return ProcessConverter.convert(updatedProcessEntity);
@@ -163,6 +139,20 @@ public class ProcessServiceImpl implements ProcessService {
 
         if(count1 == count2){
             processEntity.setStatus(valueOf(ProcessStatus.DONE));
+        }
+    }
+
+    private void prepareProcessEntity(UpdateProcessRequest request, ProcessEntity processEntity, UserEntity userEntity) {
+        if(request.getProcessName() != null){
+            processEntity.setProcessName(request.getProcessName());
+        }
+
+        if(request.getUserId() != 0){
+            processEntity.setUserEntity(userEntity);
+        }
+
+        if(request.getProcessStatus() != null){
+            processEntity.setStatus(String.valueOf(request.getProcessStatus()));
         }
     }
 }

@@ -16,7 +16,7 @@ public interface TaskService {
     List<TaskDto> taskList();
     void createTask(CreateTaskRequest request);
     TaskDto getTaskById(int id) throws TaskNotFoundException;
-    TaskDto updateTask(int id, UpdateTaskRequest request) throws TaskNotFoundException;
+    TaskDto updateTask(int id, UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException;
     TaskDto deleteTask(int id) throws TaskNotFoundException;
     TaskDto assignTask(int userid, int taskid) throws TaskNotFoundException, UserNotFoundException;
 

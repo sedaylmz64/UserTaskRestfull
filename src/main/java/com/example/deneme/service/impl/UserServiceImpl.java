@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("userServiceImpl")
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -51,17 +51,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
-        if(request.getUserName() != null){
-            userEntity.setUserName(request.getUserName());
-        }
-
-        if(request.getRole() != null){
-            userEntity.setRole(request.getRole());
-        }
-
-        if(request.getPassword() != null){
-            userEntity.setPassword(request.getPassword());
-        }
+        prepareUserEntity(request,userEntity);
 
         UserEntity updateduser = userRepository.save(userEntity);
 
@@ -74,5 +64,20 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
 
         userRepository.delete(userEntity);
+    }
+
+    private void prepareUserEntity(UpdateUserRequest request, UserEntity userEntity) {
+        if(request.getUserName() != null){
+            userEntity.setUserName(request.getUserName());
+        }
+
+        if(request.getRole() != null){
+            userEntity.setRole(request.getRole());
+        }
+
+        if(request.getPassword() != null){
+            userEntity.setPassword(request.getPassword());
+        }
+
     }
 }
