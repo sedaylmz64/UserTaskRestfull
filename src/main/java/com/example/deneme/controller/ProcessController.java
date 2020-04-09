@@ -36,7 +36,7 @@ public class ProcessController {
 
     @PutMapping("/processes/{id}")
     public ProcessDto updateProcess(@PathVariable(value = "id") int id,
-                                         @Valid @RequestBody UpdateProcessRequest request) throws ProcessNotFoundException {
+                                         @Valid @RequestBody UpdateProcessRequest request) throws ProcessNotFoundException, UserNotFoundException {
         return processService.updateProcess(id, request);
     }
 
