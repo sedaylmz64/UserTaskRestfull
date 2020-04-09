@@ -11,9 +11,7 @@ import java.util.Date;
 public class TaskEntity {
 
     public TaskEntity(){
-
     }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

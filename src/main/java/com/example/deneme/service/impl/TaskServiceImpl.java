@@ -87,6 +87,7 @@ public class TaskServiceImpl implements TaskService {
         return TaskConverter.convert(updatedTask);
     }
 
+
     @Override
     public TaskDto deleteTask(int id) throws TaskNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(id)

@@ -1,5 +1,6 @@
 package com.example.deneme;
 
+import com.example.deneme.model.entity.MetricEntity;
 import com.example.deneme.model.entity.ProcessEntity;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.model.entity.UserEntity;
@@ -18,6 +19,7 @@ public class DenemeApplication {
 				.addAnnotatedClass(UserEntity.class)
 				.addAnnotatedClass(TaskEntity.class)
 				.addAnnotatedClass(ProcessEntity.class)
+				.addAnnotatedClass(MetricEntity.class)
 				.buildSessionFactory();
 		Session session = factory.getCurrentSession();
 		SpringApplication.run(DenemeApplication.class, args);
