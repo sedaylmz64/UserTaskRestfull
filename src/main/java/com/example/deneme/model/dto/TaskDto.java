@@ -1,10 +1,12 @@
 package com.example.deneme.model.dto;
 
+import com.example.deneme.model.entity.MetricEntity;
 import com.example.deneme.model.entity.UserEntity;
 
 import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class TaskDto implements Serializable {
@@ -16,6 +18,7 @@ public class TaskDto implements Serializable {
     private Boolean deleted;
     private String description;
     private UserEntity userEntity;
+    private List<MetricEntity> metricEntities;
 
 
     public int getTaskId() {
@@ -80,6 +83,14 @@ public class TaskDto implements Serializable {
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
+    }
+
+    public List<MetricEntity> getMetricEntities() {
+        return metricEntities;
+    }
+
+    public void setMetricEntities(List<MetricEntity> metricEntities) {
+        this.metricEntities = metricEntities;
     }
 
     @Override

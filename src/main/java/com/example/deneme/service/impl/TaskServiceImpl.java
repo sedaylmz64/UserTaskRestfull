@@ -1,23 +1,30 @@
 package com.example.deneme.service.impl;
 
+import com.example.deneme.controller.request.CreateMetricRequest;
 import com.example.deneme.controller.request.CreateTaskRequest;
 import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
+import com.example.deneme.model.converter.CreateMetricRequestConverter;
 import com.example.deneme.model.converter.CreateTaskRequestConverter;
 import com.example.deneme.model.converter.TaskConverter;
 import com.example.deneme.model.converter.UserEntityConverter;
 import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.dto.UserDto;
+import com.example.deneme.model.entity.MetricEntity;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.model.entity.UserEntity;
+import com.example.deneme.repositories.MetricRepository;
 import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.TaskService;
+import com.example.deneme.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -26,17 +33,21 @@ public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private MetricRepository metricRepository;
 
     @Override
     public List<TaskDto> taskList() {
         List<TaskEntity> taskEntities = taskRepository.findAll();
 
-        for(TaskEntity list : taskEntities){
-            if(list.isDeleted())
-                taskEntities.remove(list);
-        }
+        List<TaskEntity> taskEntityList = taskEntities.stream()
+                .filter(taskEntity -> taskEntity.isDeleted())
+                .collect(Collectors.toList());
 
-        return TaskConverter.convert(taskEntities);
+
+        return TaskConverter.convert(taskEntityList);
     }
 
     @Override
@@ -60,7 +71,6 @@ public class TaskServiceImpl implements TaskService {
         TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
-        UserServiceImpl userService = new UserServiceImpl();
         UserDto userDto = userService.getUserById(request.getUserId());
 
         UserEntity userEntity = UserEntityConverter.convert(userDto);
@@ -81,6 +91,21 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() -> new UserNotFoundException(userid));
 
         taskEntity.setUserEntity(userEntity);
+
+        TaskEntity updatedTask = taskRepository.save(taskEntity);
+
+        return TaskConverter.convert(updatedTask);
+    }
+
+    @Override
+    public TaskDto assignMetric(int taskid, CreateMetricRequest request) throws TaskNotFoundException {
+        List<MetricEntity> metricEntityList = Collections.singletonList(CreateMetricRequestConverter.convert(request));
+        metricRepository.saveAll(metricEntityList);
+
+        TaskEntity taskEntity = taskRepository.findById(taskid)
+                .orElseThrow(()-> new TaskNotFoundException(taskid));
+
+        taskEntity.setMetricEntities(metricEntityList);
 
         TaskEntity updatedTask = taskRepository.save(taskEntity);
 

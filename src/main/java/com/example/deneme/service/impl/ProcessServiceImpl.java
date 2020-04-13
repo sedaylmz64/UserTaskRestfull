@@ -1,10 +1,7 @@
 package com.example.deneme.service.impl;
 
 import com.example.deneme.controller.request.CreateProcessRequest;
-import com.example.deneme.controller.request.CreateTaskRequest;
-import com.example.deneme.controller.request.CreateUserRequest;
 import com.example.deneme.controller.request.UpdateProcessRequest;
-import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.converter.*;
 import com.example.deneme.model.dto.ProcessDto;
@@ -20,11 +17,12 @@ import com.example.deneme.repositories.ProcessRepository;
 import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.ProcessService;
+import com.example.deneme.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.String.valueOf;
 
@@ -36,17 +34,20 @@ public class ProcessServiceImpl implements ProcessService {
     private UserRepository userRepository;
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private UserService userService;
 
     @Override
     public List<ProcessDto> processList() {
         List<ProcessEntity> processEntities = processRepository.findAll();
 
-        for(ProcessEntity list : processEntities){
-            if(list.isDeleted())
-                processEntities.remove(list);
-        }
+        List<ProcessEntity> processEntityList = processEntities.stream()
+                .filter(processEntity -> !processEntity.isDeleted())
+                .collect(Collectors.toList());
 
-        return ProcessConverter.convert(processEntities);
+
+
+        return ProcessConverter.convert(processEntityList);
     }
 
     @Override
@@ -74,7 +75,6 @@ public class ProcessServiceImpl implements ProcessService {
         ProcessEntity processEntity = processRepository.findById(id)
                 .orElseThrow(() -> new ProcessNotFoundException(id));
 
-        UserServiceImpl userService = new UserServiceImpl();
         UserDto userDto = userService.getUserById(request.getUserId());
 
         UserEntity userEntity = UserEntityConverter.convert(userDto);

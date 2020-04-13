@@ -1,5 +1,6 @@
 package com.example.deneme.service;
 
+import com.example.deneme.controller.request.CreateMetricRequest;
 import com.example.deneme.controller.request.CreateTaskRequest;
 import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.MetricNotFoundException;
@@ -21,5 +22,5 @@ public interface TaskService {
     TaskDto updateTask(int id, UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException;
     TaskDto deleteTask(int id) throws TaskNotFoundException;
     TaskDto assignTask(int userid, int taskid) throws TaskNotFoundException, UserNotFoundException;
-
+    TaskDto assignMetric(int taskid, CreateMetricRequest request) throws TaskNotFoundException;
 }

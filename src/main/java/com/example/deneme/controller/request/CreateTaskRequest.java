@@ -1,8 +1,10 @@
 package com.example.deneme.controller.request;
 
+import com.example.deneme.model.entity.MetricEntity;
 import com.example.deneme.model.entity.UserEntity;
 
 import java.util.Date;
+import java.util.List;
 
 public class CreateTaskRequest {
     private String taskName;
@@ -12,6 +14,7 @@ public class CreateTaskRequest {
     private Boolean deleted;
     private String description;
     private UserEntity userEntity;
+    private List<MetricEntity> metricEntities;
 
     public String getTaskName() {
         return taskName;
@@ -67,5 +70,13 @@ public class CreateTaskRequest {
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
+    }
+
+    public List<MetricEntity> getMetricEntities() {
+        return metricEntities;
+    }
+
+    public void setMetricEntities(List<MetricEntity> metricEntities) {
+        this.metricEntities = metricEntities;
     }
 }

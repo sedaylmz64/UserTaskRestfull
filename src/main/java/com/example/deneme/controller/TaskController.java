@@ -1,15 +1,13 @@
 package com.example.deneme.controller;
 
+import com.example.deneme.controller.request.CreateMetricRequest;
 import com.example.deneme.controller.request.CreateTaskRequest;
-import com.example.deneme.controller.request.CreateUserRequest;
 import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.dto.TaskDto;
-import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -47,6 +45,11 @@ public class TaskController {
     public TaskDto assignTask(@PathVariable(value = "userid") int userid,@PathVariable(value = "taskid") int taskid) throws TaskNotFoundException, UserNotFoundException {
         return taskService.assignTask(userid,taskid);
 
+    }
+
+    @PutMapping("/tasks/assignMetric/{taskid}")
+    public TaskDto assignMetric(@PathVariable(value = "taskid") int taskid, CreateMetricRequest request) throws TaskNotFoundException{
+        return taskService.assignMetric(taskid,request);
     }
 
 
