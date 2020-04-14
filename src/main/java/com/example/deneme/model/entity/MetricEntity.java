@@ -27,7 +27,7 @@ public class MetricEntity {
     @Column(name = "actual_end_date")
     private Date actual_end_date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(updatable = false, insertable = false)
     private TaskEntity taskEntity;
 

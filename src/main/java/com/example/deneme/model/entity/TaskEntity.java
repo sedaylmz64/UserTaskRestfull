@@ -37,11 +37,11 @@ public class TaskEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(updatable = false, insertable = false)
     private UserEntity userEntity;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<MetricEntity> metricEntities = new ArrayList<>();
 
     public TaskEntity(String taskName, Date startDate, Date endDate) {
