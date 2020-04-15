@@ -3,13 +3,14 @@ package com.example.deneme.controller.request;
 import com.example.deneme.model.entity.MetricEntity;
 import com.example.deneme.model.entity.UserEntity;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public class CreateTaskRequest {
     private String taskName;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String status;
     private Boolean deleted;
     private String description;
@@ -24,19 +25,19 @@ public class CreateTaskRequest {
         this.taskName = taskName;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

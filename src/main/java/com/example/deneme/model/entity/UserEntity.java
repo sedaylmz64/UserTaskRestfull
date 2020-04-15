@@ -2,13 +2,11 @@ package com.example.deneme.model.entity;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
 public class UserEntity {
-
-    public UserEntity() {
-    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,15 +21,29 @@ public class UserEntity {
     @Column(name = "role_name" )
     private String role;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
     /*@OneToMany(cascade = CascadeType.ALL,
             mappedBy = "userEntity",
             orphanRemoval = true)
     private List<TaskEntity> taskEntities = new ArrayList<TaskEntity>();*/
 
+    public UserEntity(UserEntity users) {
+        this.id = users.getId();
+        this.userName = users.getUserName();
+        this.password = users.getPassword();
+        this.role = users.getRole();
+    }
+
     public UserEntity(String userName, String password, String role) {
         this.userName = userName;
         this.password = password;
         this.role = role;
+    }
+
+    public UserEntity() {
     }
 
     public int getId() {
@@ -64,6 +76,14 @@ public class UserEntity {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     /*public List<TaskEntity> getTaskEntities() {

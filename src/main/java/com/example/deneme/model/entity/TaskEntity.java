@@ -3,6 +3,7 @@ package com.example.deneme.model.entity;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,10 +24,10 @@ public class TaskEntity {
     private String taskName;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column(name = "status")
     private String status;
@@ -44,7 +45,7 @@ public class TaskEntity {
     @OneToMany(fetch = FetchType.LAZY)
     private List<MetricEntity> metricEntities = new ArrayList<>();
 
-    public TaskEntity(String taskName, Date startDate, Date endDate) {
+    public TaskEntity(String taskName, LocalDate startDate, LocalDate endDate) {
         this.taskName = taskName;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -74,19 +75,19 @@ public class TaskEntity {
         this.taskName = taskName;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

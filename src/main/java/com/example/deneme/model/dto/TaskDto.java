@@ -1,10 +1,7 @@
 package com.example.deneme.model.dto;
 
-import com.example.deneme.model.entity.MetricEntity;
-import com.example.deneme.model.entity.UserEntity;
-
-import javax.persistence.Column;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -12,13 +9,13 @@ import java.util.Objects;
 public class TaskDto implements Serializable {
     private int taskId;
     private String taskName;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String status;
     private Boolean deleted;
     private String description;
-    private UserEntity userEntity;
-    private List<MetricEntity> metricEntities;
+    private int userId;
+    private List<MetricDto> metricDtoList;
 
 
     public int getTaskId() {
@@ -37,19 +34,19 @@ public class TaskDto implements Serializable {
         this.taskName = taskName;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -77,20 +74,20 @@ public class TaskDto implements Serializable {
         this.description = description;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public List<MetricEntity> getMetricEntities() {
-        return metricEntities;
+    public List<MetricDto> getMetricDtoList() {
+        return metricDtoList;
     }
 
-    public void setMetricEntities(List<MetricEntity> metricEntities) {
-        this.metricEntities = metricEntities;
+    public void setMetricDtoList(List<MetricDto> metricDtoList) {
+        this.metricDtoList = metricDtoList;
     }
 
     @Override

@@ -3,21 +3,21 @@ package com.example.deneme.controller.request;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.model.entity.UserEntity;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class CreateProcessRequest {
     private String processName;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String status;
     private int userId;
     private int taskId;
     private Boolean deleted;
     private List<TaskEntity> taskEntities;
     private UserEntity userEntity;
-
 
     public Iterable<Integer> getTaskId() {
         return Collections.singleton(taskId);
@@ -35,19 +35,19 @@ public class CreateProcessRequest {
         this.processName = processName;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

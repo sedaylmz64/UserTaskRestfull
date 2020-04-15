@@ -1,6 +1,7 @@
 package com.example.deneme.model.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,10 +21,10 @@ public class ProcessEntity {
     private String processName;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column(name = "status")
     private String status;
@@ -47,12 +48,11 @@ public class ProcessEntity {
         this.userEntity = userEntity;
     }
 
-    public ProcessEntity(String processName, Date startDate, Date endDate) {
+    public ProcessEntity(String processName, LocalDate startDate, LocalDate endDate) {
         this.processName = processName;
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
 
     public void setId(int id){
         this.id = id;
@@ -70,21 +70,20 @@ public class ProcessEntity {
         return processName;
     }
 
-    public void setStartDate(Date startDate){
-        this.startDate = startDate;
-    }
-
-
-    public Date getStartDate(){
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setEndDate(Date endDate){
-        this.endDate = endDate;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEndDate(){
+    public LocalDate getEndDate() {
         return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public String getStatus() {

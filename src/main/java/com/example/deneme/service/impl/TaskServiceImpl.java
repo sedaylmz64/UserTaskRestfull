@@ -8,6 +8,7 @@ import com.example.deneme.model.converter.CreateMetricRequestConverter;
 import com.example.deneme.model.converter.CreateTaskRequestConverter;
 import com.example.deneme.model.converter.TaskConverter;
 import com.example.deneme.model.converter.UserEntityConverter;
+import com.example.deneme.model.dto.MetricDto;
 import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.model.entity.MetricEntity;
@@ -37,6 +38,8 @@ public class TaskServiceImpl implements TaskService {
     private UserService userService;
     @Autowired
     private MetricRepository metricRepository;
+    @Autowired
+    private TaskService taskService;
 
     @Override
     public List<TaskDto> taskList() {
@@ -99,19 +102,21 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto assignMetric(int taskid, CreateMetricRequest request) throws TaskNotFoundException {
-        List<MetricEntity> metricEntityList = Collections.singletonList(CreateMetricRequestConverter.convert(request));
-        metricRepository.saveAll(metricEntityList);
+        MetricEntity metricEntity = new MetricEntity();
+        TaskEntity taskEntity = taskRepository.findById(request.getTaskId())
+                .orElseThrow(() -> new TaskNotFoundException(request.getTaskId()));
 
-        TaskEntity taskEntity = taskRepository.findById(taskid)
-                .orElseThrow(()-> new TaskNotFoundException(taskid));
+        List<MetricEntity> metricEntities = request.getMetrics();
 
-        taskEntity.setMetricEntities(metricEntityList);
+        metricRepository.saveAll(metricEntities);
+
+        metricEntity.setTaskEntity(taskEntity);
+        taskEntity.setMetricEntities(metricEntities);
 
         TaskEntity updatedTask = taskRepository.save(taskEntity);
 
         return TaskConverter.convert(updatedTask);
     }
-
 
     @Override
     public TaskDto deleteTask(int id) throws TaskNotFoundException {

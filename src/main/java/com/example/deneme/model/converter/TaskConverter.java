@@ -24,8 +24,8 @@ public class TaskConverter {
         taskDto.setTaskId(taskEntity.getId());
         taskDto.setDeleted(taskEntity.isDeleted());
         taskDto.setDescription(taskEntity.getDescription());
-        taskDto.setUserEntity(taskEntity.getUserEntity());
-        taskDto.setMetricEntities(taskEntity.getMetricEntities());
+        taskDto.setTaskId(taskEntity.getId());
+        taskDto.setMetricDtoList(MetricConverter.convert(taskEntity.getMetricEntities()));
 
         return taskDto;
     }

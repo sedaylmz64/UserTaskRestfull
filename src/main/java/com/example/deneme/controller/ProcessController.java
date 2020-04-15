@@ -4,11 +4,9 @@ import com.example.deneme.controller.request.CreateProcessRequest;
 import com.example.deneme.controller.request.UpdateProcessRequest;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.dto.ProcessDto;
-import com.example.deneme.model.entity.ProcessEntity;
 import com.example.deneme.exception.ProcessNotFoundException;
 import com.example.deneme.service.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,7 +37,6 @@ public class ProcessController {
                                          @Valid @RequestBody UpdateProcessRequest request) throws ProcessNotFoundException, UserNotFoundException {
         return processService.updateProcess(id, request);
     }
-
 
     @DeleteMapping("/processes/{id}")
     public ProcessDto deleteProcess(@PathVariable(value = "id") int id) throws ProcessNotFoundException {

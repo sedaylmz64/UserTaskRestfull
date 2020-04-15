@@ -3,6 +3,7 @@ package com.example.deneme.model.entity;
 import com.example.deneme.model.enums.MetricType;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -19,13 +20,13 @@ public class MetricEntity {
     private MetricType metricType;
 
     @Column(name = "start_date")
-    private Date start_date;
+    private LocalDate start_date;
 
     @Column(name = "original_end_date")
-    private Date original_end_date;
+    private LocalDate original_end_date;
 
     @Column(name = "actual_end_date")
-    private Date actual_end_date;
+    private LocalDate actual_end_date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(updatable = false, insertable = false)
@@ -47,27 +48,27 @@ public class MetricEntity {
         this.metricType = metricType;
     }
 
-    public Date getStart_date() {
+    public LocalDate getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(Date start_date) {
+    public void setStart_date(LocalDate start_date) {
         this.start_date = start_date;
     }
 
-    public Date getOriginal_end_date() {
+    public LocalDate getOriginal_end_date() {
         return original_end_date;
     }
 
-    public void setOriginal_end_date(Date original_end_date) {
+    public void setOriginal_end_date(LocalDate original_end_date) {
         this.original_end_date = original_end_date;
     }
 
-    public Date getActual_end_date() {
+    public LocalDate getActual_end_date() {
         return actual_end_date;
     }
 
-    public void setActual_end_date(Date actual_end_date) {
+    public void setActual_end_date(LocalDate actual_end_date) {
         this.actual_end_date = actual_end_date;
     }
 

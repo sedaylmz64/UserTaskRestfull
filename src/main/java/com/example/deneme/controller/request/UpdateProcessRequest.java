@@ -1,12 +1,6 @@
 package com.example.deneme.controller.request;
 
-import com.example.deneme.model.entity.TaskEntity;
-import com.example.deneme.model.entity.UserEntity;
 import com.example.deneme.model.enums.ProcessStatus;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class UpdateProcessRequest {
     private String processName;

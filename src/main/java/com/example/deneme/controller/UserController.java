@@ -3,7 +3,6 @@ package com.example.deneme.controller;
 import com.example.deneme.controller.request.CreateUserRequest;
 import com.example.deneme.controller.request.UpdateUserRequest;
 import com.example.deneme.model.dto.UserDto;
-import com.example.deneme.model.entity.UserEntity;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +31,10 @@ public class UserController {
         userService.createUser(request);
     }
 
-
     @GetMapping("/users/{id}")
     public UserDto getUserById(@PathVariable(value = "id") int id) throws UserNotFoundException {
         return userService.getUserById(id);
     }
-
 
     @PutMapping("/users/{id}")
     public UserDto updateUser(@PathVariable(value = "id") int id,
@@ -45,11 +42,8 @@ public class UserController {
         return userService.updateUser(id,request);
     }
 
-
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable(value = "id") int id) throws UserNotFoundException {
         userService.deleteUser(id);
     }
-
-
 }

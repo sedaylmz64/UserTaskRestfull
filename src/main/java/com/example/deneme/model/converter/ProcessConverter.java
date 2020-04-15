@@ -23,8 +23,8 @@ public class ProcessConverter {
         processDto.setEndDate(processEntity.getEndDate());
         processDto.setStatus(processEntity.getStatus());
         processDto.setDeleted(processEntity.isDeleted());
-        processDto.setTaskEntities(processEntity.getTaskEntities());
-        processDto.setUserEntity(processEntity.getUserEntity());
+        processDto.setTaskDtoList(TaskConverter.convert(processEntity.getTaskEntities()));
+        //processDto.setUserId(processEntity.getUserId());
 
        return processDto;
     }

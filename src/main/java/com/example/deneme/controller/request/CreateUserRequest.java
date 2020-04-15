@@ -1,13 +1,10 @@
 package com.example.deneme.controller.request;
 
-import com.example.deneme.model.entity.UserEntity;
-
 public class CreateUserRequest {
 
     private String userName;
     private String password;
     private String role;
-
 
     public String getUserName() {
         return userName;

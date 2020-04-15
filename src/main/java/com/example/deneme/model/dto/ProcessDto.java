@@ -1,10 +1,7 @@
 package com.example.deneme.model.dto;
 
-import com.example.deneme.model.entity.TaskEntity;
-import com.example.deneme.model.entity.UserEntity;
-
-import javax.persistence.Column;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -12,12 +9,12 @@ import java.util.Objects;
 public class ProcessDto implements Serializable {
     private int processId;
     private String processName;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String status;
     private Boolean deleted;
-    private List<TaskEntity> taskEntities;
-    private UserEntity userEntity;
+    private List<TaskDto> taskDtoList;
+    private int userId;
 
     public int getProcessId() {
         return processId;
@@ -35,19 +32,19 @@ public class ProcessDto implements Serializable {
         this.processName = processName;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -67,20 +64,20 @@ public class ProcessDto implements Serializable {
         this.deleted = deleted;
     }
 
-    public List<TaskEntity> getTaskEntities() {
-        return taskEntities;
+    public List<TaskDto> getTaskDtoList() {
+        return taskDtoList;
     }
 
-    public void setTaskEntities(List<TaskEntity> taskEntities) {
-        this.taskEntities = taskEntities;
+    public void setTaskDtoList(List<TaskDto> taskDtoList) {
+        this.taskDtoList = taskDtoList;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override

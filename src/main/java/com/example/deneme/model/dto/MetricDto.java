@@ -1,20 +1,18 @@
 package com.example.deneme.model.dto;
 
-import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.model.enums.MetricType;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class MetricDto implements Serializable {
     private int metricId;
     private MetricType metricType;
-    private Date start_date;
-    private Date original_end_date;
-    private Date actual_end_date;
-    private TaskEntity taskEntity;
+    private LocalDate start_date;
+    private LocalDate original_end_date;
+    private LocalDate actual_end_date;
+    private int taskId;
 
     public int getMetricId() {
         return metricId;
@@ -32,36 +30,36 @@ public class MetricDto implements Serializable {
         this.metricType = metricType;
     }
 
-    public Date getStart_date() {
+    public LocalDate getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(Date start_date) {
+    public void setStart_date(LocalDate start_date) {
         this.start_date = start_date;
     }
 
-    public Date getOriginal_end_date() {
+    public LocalDate getOriginal_end_date() {
         return original_end_date;
     }
 
-    public void setOriginal_end_date(Date original_end_date) {
+    public void setOriginal_end_date(LocalDate original_end_date) {
         this.original_end_date = original_end_date;
     }
 
-    public Date getActual_end_date() {
+    public LocalDate getActual_end_date() {
         return actual_end_date;
     }
 
-    public void setActual_end_date(Date actual_end_date) {
+    public void setActual_end_date(LocalDate actual_end_date) {
         this.actual_end_date = actual_end_date;
     }
 
-    public TaskEntity getTaskEntity() {
-        return taskEntity;
+    public int getTaskId() {
+        return taskId;
     }
 
-    public void setTaskEntity(TaskEntity taskEntity) {
-        this.taskEntity = taskEntity;
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
     @Override
@@ -72,7 +70,7 @@ public class MetricDto implements Serializable {
                 ", start_date=" + start_date +
                 ", original_end_date=" + original_end_date +
                 ", actual_end_date=" + actual_end_date +
-                ", taskEntity=" + taskEntity +
+                ", taskId=" + taskId +
                 '}';
     }
 
@@ -82,15 +80,15 @@ public class MetricDto implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         MetricDto metricDto = (MetricDto) o;
         return metricId == metricDto.metricId &&
+                taskId == metricDto.taskId &&
                 metricType == metricDto.metricType &&
                 Objects.equals(start_date, metricDto.start_date) &&
                 Objects.equals(original_end_date, metricDto.original_end_date) &&
-                Objects.equals(actual_end_date, metricDto.actual_end_date) &&
-                Objects.equals(taskEntity, metricDto.taskEntity);
+                Objects.equals(actual_end_date, metricDto.actual_end_date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(metricId, metricType, start_date, original_end_date, actual_end_date, taskEntity);
+        return Objects.hash(metricId, metricType, start_date, original_end_date, actual_end_date, taskId);
     }
 }

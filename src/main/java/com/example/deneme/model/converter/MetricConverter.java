@@ -20,7 +20,7 @@ public class MetricConverter {
         metricDto.setStart_date(metricEntity.getStart_date());
         metricDto.setOriginal_end_date(metricEntity.getOriginal_end_date());
         metricDto.setActual_end_date(metricEntity.getActual_end_date());
-        metricDto.setTaskEntity(metricEntity.getTaskEntity());
+        //metricDto.setTaskId(metricEntity.);
 
         return metricDto;
     }

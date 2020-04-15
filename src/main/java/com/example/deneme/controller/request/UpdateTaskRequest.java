@@ -2,13 +2,11 @@ package com.example.deneme.controller.request;
 
 import com.example.deneme.model.enums.TaskStatus;
 
-
 public class UpdateTaskRequest {
     private String taskName;
     private TaskStatus status;
     private String description;
     private int userId;
-
 
     public String getTaskName() {
         return taskName;
