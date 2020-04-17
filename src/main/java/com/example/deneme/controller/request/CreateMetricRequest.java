@@ -1,12 +1,13 @@
 package com.example.deneme.controller.request;
 
+import com.example.deneme.model.dto.MetricDto;
 import com.example.deneme.model.entity.MetricEntity;
 
 import java.util.List;
 
 public class CreateMetricRequest {
     private int taskId;
-    private List<MetricEntity> metrics;
+    private List<MetricDto> metrics;
 
     public int getTaskId() {
         return taskId;
@@ -16,11 +17,11 @@ public class CreateMetricRequest {
         this.taskId = taskId;
     }
 
-    public List<MetricEntity> getMetrics() {
+    public List<MetricDto> getMetrics() {
         return metrics;
     }
 
-    public void setMetrics(List<MetricEntity> metrics) {
+    public void setMetrics(List<MetricDto> metrics) {
         this.metrics = metrics;
     }
 }

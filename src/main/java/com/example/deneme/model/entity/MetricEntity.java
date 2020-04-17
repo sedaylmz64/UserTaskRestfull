@@ -20,13 +20,13 @@ public class MetricEntity {
     private MetricType metricType;
 
     @Column(name = "start_date")
-    private LocalDate start_date;
+    private LocalDate startDate;
 
     @Column(name = "original_end_date")
-    private LocalDate original_end_date;
+    private LocalDate originalEndDate;
 
     @Column(name = "actual_end_date")
-    private LocalDate actual_end_date;
+    private LocalDate actualEndDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(updatable = false, insertable = false)
@@ -48,28 +48,28 @@ public class MetricEntity {
         this.metricType = metricType;
     }
 
-    public LocalDate getStart_date() {
-        return start_date;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(LocalDate start_date) {
-        this.start_date = start_date;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getOriginal_end_date() {
-        return original_end_date;
+    public LocalDate getOriginalEndDate() {
+        return originalEndDate;
     }
 
-    public void setOriginal_end_date(LocalDate original_end_date) {
-        this.original_end_date = original_end_date;
+    public void setOriginalEndDate(LocalDate originalEndDate) {
+        this.originalEndDate = originalEndDate;
     }
 
-    public LocalDate getActual_end_date() {
-        return actual_end_date;
+    public LocalDate getActualEndDate() {
+        return actualEndDate;
     }
 
-    public void setActual_end_date(LocalDate actual_end_date) {
-        this.actual_end_date = actual_end_date;
+    public void setActualEndDate(LocalDate actualEndDate) {
+        this.actualEndDate = actualEndDate;
     }
 
     public TaskEntity getTaskEntity() {
@@ -88,9 +88,9 @@ public class MetricEntity {
         return "MetricEntity{" +
                 "id=" + id +
                 ", metricType=" + metricType +
-                ", start_date=" + start_date +
-                ", original_end_date=" + original_end_date +
-                ", actual_end_date=" + actual_end_date +
+                ", start_date=" + startDate +
+                ", original_end_date=" + originalEndDate +
+                ", actual_end_date=" + actualEndDate +
                 ", taskEntity=" + taskEntity +
                 '}';
     }

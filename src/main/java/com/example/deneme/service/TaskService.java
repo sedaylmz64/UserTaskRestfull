@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public interface TaskService {
     List<TaskDto> taskList();
-    void createTask(CreateTaskRequest request);
+    void createTask(CreateTaskRequest request) throws UserNotFoundException;
     TaskDto getTaskById(int id) throws TaskNotFoundException;
     TaskDto updateTask(int id, UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException;
     TaskDto deleteTask(int id) throws TaskNotFoundException;

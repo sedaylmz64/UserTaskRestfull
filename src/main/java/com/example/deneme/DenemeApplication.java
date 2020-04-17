@@ -9,25 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication//(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+@EnableScheduling
 public class DenemeApplication implements CommandLineRunner {
 
 	@Autowired
 	UserRepository usersRepository;
 
 	public static void main(String[] args) {
-		SessionFactory factory = (SessionFactory) new Configuration()
-				.configure("hibernate.cfg.xml")
-				.addAnnotatedClass(UserEntity.class)
-				.addAnnotatedClass(TaskEntity.class)
-				.addAnnotatedClass(ProcessEntity.class)
-				.addAnnotatedClass(MetricEntity.class)
-				.buildSessionFactory();
-		Session session = factory.getCurrentSession();
 		SpringApplication.run(DenemeApplication.class, args);
 	}
 

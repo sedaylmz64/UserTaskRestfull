@@ -9,9 +9,9 @@ import java.util.Objects;
 public class MetricDto implements Serializable {
     private int metricId;
     private MetricType metricType;
-    private LocalDate start_date;
-    private LocalDate original_end_date;
-    private LocalDate actual_end_date;
+    private LocalDate startDate;
+    private LocalDate originalEndDate;
+    private LocalDate actualEndDate;
     private int taskId;
 
     public int getMetricId() {
@@ -30,28 +30,28 @@ public class MetricDto implements Serializable {
         this.metricType = metricType;
     }
 
-    public LocalDate getStart_date() {
-        return start_date;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(LocalDate start_date) {
-        this.start_date = start_date;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getOriginal_end_date() {
-        return original_end_date;
+    public LocalDate getOriginalEndDate() {
+        return originalEndDate;
     }
 
-    public void setOriginal_end_date(LocalDate original_end_date) {
-        this.original_end_date = original_end_date;
+    public void setOriginalEndDate(LocalDate originalEndDate) {
+        this.originalEndDate = originalEndDate;
     }
 
-    public LocalDate getActual_end_date() {
-        return actual_end_date;
+    public LocalDate getActualEndDate() {
+        return actualEndDate;
     }
 
-    public void setActual_end_date(LocalDate actual_end_date) {
-        this.actual_end_date = actual_end_date;
+    public void setActualEndDate(LocalDate actualEndDate) {
+        this.actualEndDate = actualEndDate;
     }
 
     public int getTaskId() {
@@ -67,9 +67,9 @@ public class MetricDto implements Serializable {
         return "MetricDto{" +
                 "metricId=" + metricId +
                 ", metricType=" + metricType +
-                ", start_date=" + start_date +
-                ", original_end_date=" + original_end_date +
-                ", actual_end_date=" + actual_end_date +
+                ", start_date=" + startDate +
+                ", original_end_date=" + originalEndDate +
+                ", actual_end_date=" + actualEndDate +
                 ", taskId=" + taskId +
                 '}';
     }
@@ -82,13 +82,13 @@ public class MetricDto implements Serializable {
         return metricId == metricDto.metricId &&
                 taskId == metricDto.taskId &&
                 metricType == metricDto.metricType &&
-                Objects.equals(start_date, metricDto.start_date) &&
-                Objects.equals(original_end_date, metricDto.original_end_date) &&
-                Objects.equals(actual_end_date, metricDto.actual_end_date);
+                Objects.equals(startDate, metricDto.startDate) &&
+                Objects.equals(originalEndDate, metricDto.originalEndDate) &&
+                Objects.equals(actualEndDate, metricDto.actualEndDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(metricId, metricType, start_date, original_end_date, actual_end_date, taskId);
+        return Objects.hash(metricId, metricType, startDate, originalEndDate, actualEndDate, taskId);
     }
 }

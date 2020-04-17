@@ -4,10 +4,7 @@ import com.example.deneme.controller.request.CreateMetricRequest;
 import com.example.deneme.controller.request.CreateTaskRequest;
 import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
-import com.example.deneme.model.converter.CreateMetricRequestConverter;
-import com.example.deneme.model.converter.CreateTaskRequestConverter;
-import com.example.deneme.model.converter.TaskConverter;
-import com.example.deneme.model.converter.UserEntityConverter;
+import com.example.deneme.model.converter.*;
 import com.example.deneme.model.dto.MetricDto;
 import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.dto.UserDto;
@@ -23,7 +20,6 @@ import com.example.deneme.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,7 +50,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void createTask(CreateTaskRequest request) {
+    public void createTask(CreateTaskRequest request) throws UserNotFoundException {
         TaskEntity taskEntity = CreateTaskRequestConverter.convert(request);
         taskRepository.save(taskEntity);}
 
@@ -106,12 +102,12 @@ public class TaskServiceImpl implements TaskService {
         TaskEntity taskEntity = taskRepository.findById(request.getTaskId())
                 .orElseThrow(() -> new TaskNotFoundException(request.getTaskId()));
 
-        List<MetricEntity> metricEntities = request.getMetrics();
+        List<MetricDto> metricDtos = request.getMetrics();
 
-        metricRepository.saveAll(metricEntities);
+        metricRepository.saveAll(MetricConverter.converts(metricDtos));
 
         metricEntity.setTaskEntity(taskEntity);
-        taskEntity.setMetricEntities(metricEntities);
+        taskEntity.setMetricEntities(MetricConverter.converts(metricDtos));
 
         TaskEntity updatedTask = taskRepository.save(taskEntity);
 

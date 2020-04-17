@@ -16,8 +16,8 @@ public class CreateProcessRequest {
     private int userId;
     private int taskId;
     private Boolean deleted;
-    private List<TaskEntity> taskEntities;
-    private UserEntity userEntity;
+    private List<Integer> taskIdList;
+    private String userNames;
 
     public Iterable<Integer> getTaskId() {
         return Collections.singleton(taskId);
@@ -75,19 +75,19 @@ public class CreateProcessRequest {
         this.deleted = deleted;
     }
 
-    public List<TaskEntity> getTaskEntities() {
-        return taskEntities;
+    public List<Integer> getTaskIdList() {
+        return taskIdList;
     }
 
-    public void setTaskEntities(List<TaskEntity> taskEntities) {
-        this.taskEntities = taskEntities;
+    public void setTaskIdList(List<Integer> taskIdList) {
+        this.taskIdList = taskIdList;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public String getUserNames() {
+        return userNames;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setUserNames(String userNames) {
+        this.userNames = userNames;
     }
 }

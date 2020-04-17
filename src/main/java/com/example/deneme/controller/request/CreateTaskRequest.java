@@ -1,5 +1,6 @@
 package com.example.deneme.controller.request;
 
+import com.example.deneme.model.dto.MetricDto;
 import com.example.deneme.model.entity.MetricEntity;
 import com.example.deneme.model.entity.UserEntity;
 
@@ -14,8 +15,8 @@ public class CreateTaskRequest {
     private String status;
     private Boolean deleted;
     private String description;
-    private UserEntity userEntity;
-    private List<MetricEntity> metricEntities;
+    private String userName;
+    private List<MetricDto> metricDtos;
 
     public String getTaskName() {
         return taskName;
@@ -65,19 +66,19 @@ public class CreateTaskRequest {
         this.description = description;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public List<MetricEntity> getMetricEntities() {
-        return metricEntities;
+    public List<MetricDto> getMetricDtos() {
+        return metricDtos;
     }
 
-    public void setMetricEntities(List<MetricEntity> metricEntities) {
-        this.metricEntities = metricEntities;
+    public void setMetricDtos(List<MetricDto> metricDtos) {
+        this.metricDtos = metricDtos;
     }
 }

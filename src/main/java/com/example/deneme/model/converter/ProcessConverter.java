@@ -24,7 +24,7 @@ public class ProcessConverter {
         processDto.setStatus(processEntity.getStatus());
         processDto.setDeleted(processEntity.isDeleted());
         processDto.setTaskDtoList(TaskConverter.convert(processEntity.getTaskEntities()));
-        //processDto.setUserId(processEntity.getUserId());
+        processDto.setUserId(processEntity.getUserEntity().getId());
 
        return processDto;
     }
