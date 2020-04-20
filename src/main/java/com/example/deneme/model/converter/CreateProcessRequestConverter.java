@@ -31,7 +31,7 @@ public class CreateProcessRequestConverter {
         String userName = request.getUserNames();
 
         List<TaskDto> taskDtoList = TaskConverter.convert(taskRepository.findAllById(taskIdList));
-        UserDto userDto = UserConverter.convert(userRepository.findByName(userName)
+        UserDto userDto = UserConverter.convert(userRepository.findByUserName(userName)
                 .orElseThrow(() -> new UserNotFoundException(userName)));
 
         processEntity.setUserEntity(UserEntityConverter.convert(userDto));

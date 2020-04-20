@@ -17,6 +17,7 @@ import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.TaskService;
 import com.example.deneme.service.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,6 @@ public class TaskServiceImpl implements TaskService {
         List<TaskEntity> taskEntityList = taskEntities.stream()
                 .filter(taskEntity -> taskEntity.isDeleted())
                 .collect(Collectors.toList());
-
 
         return TaskConverter.convert(taskEntityList);
     }

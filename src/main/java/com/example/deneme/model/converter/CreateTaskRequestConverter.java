@@ -23,7 +23,7 @@ public class CreateTaskRequestConverter {
         taskEntity.setDescription(request.getDescription());
         taskEntity.setMetricEntities(MetricConverter.converts(request.getMetricDtos()));
 
-        UserDto userDto = UserConverter.convert(userRepository.findByName(request.getUserName())
+        UserDto userDto = UserConverter.convert(userRepository.findByUserName(request.getUserName())
         .orElseThrow(()->new UserNotFoundException(request.getUserName())));
 
         taskEntity.setUserEntity(UserEntityConverter.convert(userDto));

@@ -2,6 +2,8 @@ package com.example.deneme.model.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,14 +23,8 @@ public class UserEntity {
     @Column(name = "role_name" )
     private String role;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
-
-    /*@OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "userEntity",
-            orphanRemoval = true)
-    private List<TaskEntity> taskEntities = new ArrayList<TaskEntity>();*/
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<TaskEntity> taskEntityList = new ArrayList<>();
 
     public UserEntity(UserEntity users) {
         this.id = users.getId();
@@ -78,21 +74,13 @@ public class UserEntity {
         this.role = role;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public List<TaskEntity> getTaskEntityList() {
+        return taskEntityList;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setTaskEntityList(List<TaskEntity> taskEntityList) {
+        this.taskEntityList = taskEntityList;
     }
-
-    /*public List<TaskEntity> getTaskEntities() {
-        return taskEntities;
-    }
-
-    public void setTaskEntities(List<TaskEntity> taskEntities) {
-        this.taskEntities = taskEntities;
-    }*/
 
     @Override
     public String toString() {

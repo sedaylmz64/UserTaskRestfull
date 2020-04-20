@@ -10,6 +10,7 @@ public class UserEntityConverter {
         userEntity.setUserName(userDto.getUserName());
         userEntity.setRole(userDto.getRole());
         userEntity.setPassword(userDto.getPassword());
+        userEntity.setTaskEntityList(TaskConverter.converts(userDto.getTaskDtoList()));
 
         return userEntity;
     }

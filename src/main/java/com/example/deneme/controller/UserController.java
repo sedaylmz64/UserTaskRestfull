@@ -26,6 +26,16 @@ public class UserController {
         return userService.createUser(userEntity);
     }*/
 
+    @GetMapping("/users/taskMetric/{id}")
+    public String getUserTaskMetric(@PathVariable(value = "id") int id) throws UserNotFoundException {
+        return userService.getUserTaskMetric(id);
+    }
+
+    @GetMapping("/users/userNames/{username}")
+    public List<UserDto> getUserListByName(String userName){
+        return userService.getUserListByName(userName);
+    }
+
     @PostMapping("/users")
     public void createUser(@RequestBody CreateUserRequest request) {
         userService.createUser(request);

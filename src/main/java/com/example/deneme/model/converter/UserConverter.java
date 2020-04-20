@@ -4,6 +4,7 @@ import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.model.entity.UserEntity;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserConverter {
@@ -15,12 +16,14 @@ public class UserConverter {
                 .collect(Collectors.toList());
     }
 
+
     public static UserDto convert(UserEntity userEntity){
         UserDto userDto = new UserDto();
         //userDTO.setPassword(userEntity.getPassword());
         userDto.setRole(userEntity.getRole());
         userDto.setUserName(userEntity.getUserName());
         userDto.setUserId(userEntity.getId());
+        userDto.setTaskDtoList(TaskConverter.convert(userEntity.getTaskEntityList()));
 
         return userDto;
     }

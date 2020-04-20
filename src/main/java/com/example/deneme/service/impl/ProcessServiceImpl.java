@@ -34,8 +34,6 @@ public class ProcessServiceImpl implements ProcessService {
     private UserRepository userRepository;
     @Autowired
     private TaskRepository taskRepository;
-    @Autowired
-    private UserService userService;
 
     @Override
     public List<ProcessDto> processList() {
@@ -44,8 +42,6 @@ public class ProcessServiceImpl implements ProcessService {
         List<ProcessEntity> processEntityList = processEntities.stream()
                 .filter(processEntity -> !processEntity.isDeleted())
                 .collect(Collectors.toList());
-
-
 
         return ProcessConverter.convert(processEntityList);
     }
@@ -75,7 +71,8 @@ public class ProcessServiceImpl implements ProcessService {
         ProcessEntity processEntity = processRepository.findById(id)
                 .orElseThrow(() -> new ProcessNotFoundException(id));
 
-        UserDto userDto = userService.getUserById(request.getUserId());
+        UserDto userDto = UserConverter.convert(userRepository.findById(request.getUserId())
+                .orElseThrow(()->new UserNotFoundException(request.getUserId())));
 
         UserEntity userEntity = UserEntityConverter.convert(userDto);
 
@@ -97,8 +94,6 @@ public class ProcessServiceImpl implements ProcessService {
         processEntity.setDeleted(true);
 
         taskDtoList.stream().forEach(taskDto -> taskDto.setDeleted(true));
-
-        //for(TaskDto taskDto : taskDtoList){ taskDto.setDeleted(true);}
 
         ProcessEntity updatedProcessEntity = processRepository.save(processEntity);
         return ProcessConverter.convert(updatedProcessEntity);
