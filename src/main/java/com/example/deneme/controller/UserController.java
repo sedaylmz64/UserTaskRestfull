@@ -31,8 +31,8 @@ public class UserController {
         return userService.getUserTaskMetric(id);
     }
 
-    @GetMapping("/users/userNames/{username}")
-    public List<UserDto> getUserListByName(String userName){
+    @GetMapping("/users/{userName}")
+    public List<UserDto> getUserListByName(@PathVariable(value = "userName")String userName){
         return userService.getUserListByName(userName);
     }
 

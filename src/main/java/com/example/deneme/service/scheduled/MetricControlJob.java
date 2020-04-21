@@ -19,6 +19,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Component
@@ -30,42 +32,65 @@ public class MetricControlJob {
     @Autowired
     private TaskRepository taskRepository;
 
+    private final Supplier<Predicate<MetricDto>> findOverDeadline = () -> metricDto ->
+            metricDto.getActualEndDate().getDayOfMonth()
+            > metricDto.getOriginalEndDate().getDayOfMonth();
+
     @Scheduled(fixedRate = 5000)
-    public void Scheduled() throws UserNotFoundException {
-        List<TaskDto> taskDtoList = new ArrayList<>();
-        List<UserDto> userDtoList = new ArrayList<>();
-        List<MetricDto> metricDtos = MetricConverter.convert(metricRepository.findAll());
-        List<MetricDto> metricDtoList = metricDtos.stream()
-                .filter(metricDto -> metricDto.getActualEndDate().getDayOfMonth() > metricDto.getOriginalEndDate().getDayOfMonth())
+    public void Scheduled() throws UserNotFoundException, TaskNotFoundException {
+        List<TaskDto> overDeadLineTaskList = new ArrayList<>();
+        List<UserDto> overDeadLineUserList = new ArrayList<>();
+        List<MetricDto> allMetrics = MetricConverter.convert(metricRepository.findAll());
+
+        List<MetricDto> overDeadlineMetricList = getOverDeadlineMetrics(allMetrics);
+
+        for(MetricDto overDeadlineMetric : overDeadlineMetricList){
+            TaskDto overDeadLineTask = getOverDeadlineTask(overDeadlineMetric);
+
+            overDeadLineTaskList.add(overDeadLineTask);
+
+            overDeadLineUserList.add(getOverDeadlineUser(overDeadLineTask));
+        }
+
+        printOverDeadLineMetricTaskUserList(overDeadlineMetricList,overDeadLineTaskList,overDeadLineUserList);
+
+    }
+
+    private void printOverDeadLineMetricTaskUserList(List<MetricDto> overDeadlineMetricList, List<TaskDto> taskDtoList, List<UserDto> userDtoList) {
+        printOverDeadLineMetricList(overDeadlineMetricList);
+        printOverDeadLineTaskList(taskDtoList);
+        printOverDeadLineUserList(userDtoList);
+    }
+
+    private TaskDto getOverDeadlineTask(MetricDto overDeadlineMetric) throws TaskNotFoundException {
+        return TaskConverter.convert(taskRepository.findById(overDeadlineMetric.getTaskId())
+                .orElseThrow(()->new TaskNotFoundException(overDeadlineMetric.getTaskId())));
+    }
+
+    private UserDto getOverDeadlineUser(TaskDto overDeadLineTask) throws UserNotFoundException {
+         return UserConverter.convert(userRepository.findById(overDeadLineTask.getUserId())
+                .orElseThrow(()->new UserNotFoundException(overDeadLineTask.getUserId())));
+    }
+
+    private void printOverDeadLineUserList(List<UserDto> userList) {
+        userList.stream()
+                .forEach(user-> System.out.println(user));
+    }
+
+    private void printOverDeadLineTaskList(List<TaskDto> taskList) {
+        taskList.stream()
+                .forEach(task-> System.out.println(task));
+    }
+
+    private void printOverDeadLineMetricList(List<MetricDto> overDeadlineMetricList) {
+        overDeadlineMetricList.stream()
+                .forEach(metric-> System.out.println(metric));
+    }
+
+    private List<MetricDto> getOverDeadlineMetrics(List<MetricDto> metricDtos) {
+        return metricDtos
+                .stream()
+                .filter(findOverDeadline.get())
                 .collect(Collectors.toList());
-
-        for(MetricDto metricDto : metricDtoList){
-            TaskDto taskDto = null;
-            try {
-                taskDto = TaskConverter.convert(taskRepository.findById(metricDto.getTaskId())
-                        .orElseThrow(()->new TaskNotFoundException(metricDto.getTaskId())));
-            } catch (TaskNotFoundException e) {
-                e.printStackTrace();
-            }
-            taskDtoList.add(taskDto);
-
-            TaskDto finalTaskDto = taskDto;
-            UserDto userDto = UserConverter.convert(userRepository.findById(taskDto.getUserId())
-                    .orElseThrow(()->new UserNotFoundException(finalTaskDto.getUserId())));
-            userDtoList.add(userDto);
-        }
-
-        for(int i = 0; i < metricDtoList.size(); i++){
-            System.out.println(metricDtoList.get(i));
-        }
-
-        for(int i = 0; i < taskDtoList.size(); i++){
-            System.out.println(taskDtoList.get(i));
-        }
-
-        for(int i = 0; i < userDtoList.size(); i++){
-            System.out.println(userDtoList.get(i));
-        }
-
     }
 }

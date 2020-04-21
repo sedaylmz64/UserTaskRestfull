@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -101,14 +102,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getUserListByName(String userName){
         if(userName.length() < 3)
-            return null;
+            return Collections.emptyList();
         else {
-            List<UserEntity> userEntity = userRepository.findAll();
-            List<String> name = userEntity.stream().map(userEntity1 -> userEntity1.getUserName()).collect(Collectors.toList());
-
-            name.stream().filter(uname->uname.startsWith(userName));
-
-            List<UserEntity> userEntityList = userRepository.findAllByUserName(name);
+            List<UserEntity> userEntityList = userRepository.findAllByUserName(userName);
             return UserConverter.convert(userEntityList);
         }
     }
