@@ -15,7 +15,7 @@ public class ProcessEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "process_name")
     private String processName;
@@ -39,27 +39,18 @@ public class ProcessEntity {
     @JoinColumn(updatable = false, insertable = false)
     private UserEntity userEntity;
 
-
-    public UserEntity getUserEntity() {
-        return userEntity;
-    }
-
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
-    }
-
     public ProcessEntity(String processName, LocalDate startDate, LocalDate endDate) {
         this.processName = processName;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public void setId(int id){
-        this.id = id;
+    public Integer getId() {
+        return id;
     }
 
-    public int getId(){
-        return id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setProcessName(String processName){
@@ -108,5 +99,13 @@ public class ProcessEntity {
 
     public void setTaskEntities(List<TaskEntity> taskEntities) {
         this.taskEntities = taskEntities;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

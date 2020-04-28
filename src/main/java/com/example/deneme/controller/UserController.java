@@ -21,13 +21,8 @@ public class UserController {
         return userService.userList();
     }
 
-    /*@PostMapping("/users")
-    public UserDto createUser(@Valid @RequestBody UserDto userEntity) {
-        return userService.createUser(userEntity);
-    }*/
-
     @GetMapping("/users/taskMetric/{id}")
-    public String getUserTaskMetric(@PathVariable(value = "id") int id) throws UserNotFoundException {
+    public String getUserTaskMetric(@PathVariable(value = "id") Integer id) throws UserNotFoundException {
         return userService.getUserTaskMetric(id);
     }
 
@@ -42,18 +37,18 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public UserDto getUserById(@PathVariable(value = "id") int id) throws UserNotFoundException {
+    public UserDto getUserById(@PathVariable(value = "id") Integer id) throws UserNotFoundException {
         return userService.getUserById(id);
     }
 
     @PutMapping("/users/{id}")
-    public UserDto updateUser(@PathVariable(value = "id") int id,
+    public UserDto updateUser(@PathVariable(value = "id") Integer id,
                                             @Validated UpdateUserRequest request) throws UserNotFoundException {
         return userService.updateUser(id,request);
     }
 
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable(value = "id") int id) throws UserNotFoundException {
+    public void deleteUser(@PathVariable(value = "id") Integer id) throws UserNotFoundException {
         userService.deleteUser(id);
     }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 public class MetricEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "metric_type")
@@ -32,11 +32,16 @@ public class MetricEntity {
     @JoinColumn(updatable = false, insertable = false)
     private TaskEntity taskEntity;
 
-    public int getId() {
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(updatable = false, insertable = false)
+    private UserEntity userEntity;
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -78,6 +83,14 @@ public class MetricEntity {
 
     public void setTaskEntity(TaskEntity taskEntity) {
         this.taskEntity = taskEntity;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public MetricEntity() {

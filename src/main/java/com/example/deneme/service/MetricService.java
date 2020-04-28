@@ -7,5 +7,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface MetricService {
-    MetricDto assignTask(int userid, int taskid) throws TaskNotFoundException, MetricNotFoundException;
+    MetricDto assignTask(Integer userid, Integer taskid) throws TaskNotFoundException, MetricNotFoundException;
 }

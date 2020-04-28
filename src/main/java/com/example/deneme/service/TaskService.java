@@ -18,9 +18,9 @@ import java.util.List;
 public interface TaskService {
     List<TaskDto> taskList();
     void createTask(CreateTaskRequest request) throws UserNotFoundException;
-    TaskDto getTaskById(int id) throws TaskNotFoundException;
-    TaskDto updateTask(int id, UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException;
-    TaskDto deleteTask(int id) throws TaskNotFoundException;
-    TaskDto assignTask(int userid, int taskid) throws TaskNotFoundException, UserNotFoundException;
-    TaskDto assignMetric(int taskid, CreateMetricRequest request) throws TaskNotFoundException;
+    TaskDto getTaskById(Integer id) throws TaskNotFoundException;
+    TaskDto updateTask(Integer id, UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException;
+    TaskDto deleteTask(Integer id) throws TaskNotFoundException;
+    TaskDto assignTask(Integer userid, Integer taskid) throws TaskNotFoundException, UserNotFoundException;
+    TaskDto assignMetric(Integer taskid, CreateMetricRequest request) throws TaskNotFoundException;
 }

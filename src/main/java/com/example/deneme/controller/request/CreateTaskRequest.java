@@ -1,11 +1,7 @@
 package com.example.deneme.controller.request;
 
 import com.example.deneme.model.dto.MetricDto;
-import com.example.deneme.model.entity.MetricEntity;
-import com.example.deneme.model.entity.UserEntity;
-
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class CreateTaskRequest {
@@ -17,6 +13,7 @@ public class CreateTaskRequest {
     private String description;
     private String userName;
     private List<MetricDto> metricDtos;
+    private String processName;
 
     public String getTaskName() {
         return taskName;
@@ -80,5 +77,13 @@ public class CreateTaskRequest {
 
     public void setMetricDtos(List<MetricDto> metricDtos) {
         this.metricDtos = metricDtos;
+    }
+
+    public String getProcessName() {
+        return processName;
+    }
+
+    public void setProcessName(String processName) {
+        this.processName = processName;
     }
 }

@@ -7,23 +7,26 @@ import java.util.List;
 import java.util.Objects;
 
 public class TaskDto implements Serializable {
-    private int taskId;
+    private Integer taskId;
     private String taskName;
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
     private Boolean deleted;
     private String description;
-    private int userId;
+    private Integer userId;
     private List<MetricDto> metricDtoList;
 
-
-    public int getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getTaskName() {

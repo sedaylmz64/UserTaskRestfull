@@ -44,6 +44,13 @@ public class MetricControlJob {
 
         List<MetricDto> overDeadlineMetricList = getOverDeadlineMetrics(allMetrics);
 
+        addOverDeadlineUserTask(overDeadlineMetricList,overDeadLineTaskList,overDeadLineUserList);
+        
+        printOverDeadLineMetricTaskUserList(overDeadlineMetricList,overDeadLineTaskList,overDeadLineUserList);
+
+    }
+
+    private void addOverDeadlineUserTask(List<MetricDto> overDeadlineMetricList, List<TaskDto> overDeadLineTaskList, List<UserDto> overDeadLineUserList) throws TaskNotFoundException, UserNotFoundException {
         for(MetricDto overDeadlineMetric : overDeadlineMetricList){
             TaskDto overDeadLineTask = getOverDeadlineTask(overDeadlineMetric);
 
@@ -51,11 +58,8 @@ public class MetricControlJob {
 
             overDeadLineUserList.add(getOverDeadlineUser(overDeadLineTask));
         }
-
-        printOverDeadLineMetricTaskUserList(overDeadlineMetricList,overDeadLineTaskList,overDeadLineUserList);
-
     }
-
+    
     private void printOverDeadLineMetricTaskUserList(List<MetricDto> overDeadlineMetricList, List<TaskDto> taskDtoList, List<UserDto> userDtoList) {
         printOverDeadLineMetricList(overDeadlineMetricList);
         printOverDeadLineTaskList(taskDtoList);

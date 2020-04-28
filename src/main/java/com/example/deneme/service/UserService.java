@@ -13,10 +13,10 @@ public interface UserService {
 
     List<UserDto> userList();
     void createUser(CreateUserRequest request);
-    UserDto getUserById(int id) throws UserNotFoundException;
-    UserDto updateUser(int id, UpdateUserRequest request) throws UserNotFoundException;
-    void deleteUser(int id) throws UserNotFoundException;
-    String getUserTaskMetric(int id) throws UserNotFoundException;
+    UserDto getUserById(Integer id) throws UserNotFoundException;
+    UserDto updateUser(Integer id, UpdateUserRequest request) throws UserNotFoundException;
+    void deleteUser(Integer id) throws UserNotFoundException;
+    String getUserTaskMetric(Integer id) throws UserNotFoundException;
     List<UserDto> getUserListByName(String userName);
 
 }

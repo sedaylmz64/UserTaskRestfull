@@ -6,15 +6,24 @@ import com.example.deneme.model.entity.MetricEntity;
 import java.util.List;
 
 public class CreateMetricRequest {
-    private int taskId;
+    private Integer taskId;
+    private Integer userId;
     private List<MetricDto> metrics;
 
-    public int getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public List<MetricDto> getMetrics() {

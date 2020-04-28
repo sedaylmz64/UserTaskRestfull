@@ -16,9 +16,9 @@ import java.util.List;
 public interface ProcessService {
     List<ProcessDto> processList();
     void createProcess(CreateProcessRequest request) throws UserNotFoundException;
-    ProcessDto getProcessById(int id) throws ProcessNotFoundException;
-    ProcessDto updateProcess(int id, UpdateProcessRequest request) throws ProcessNotFoundException, UserNotFoundException;
-    ProcessDto deleteProcess(int id) throws ProcessNotFoundException;
-    ProcessDto assignProcess(int userid, int processid) throws ProcessNotFoundException,UserNotFoundException;
-    void assignStatus(CreateProcessRequest request, int processid) throws ProcessNotFoundException;
+    ProcessDto getProcessById(Integer id) throws ProcessNotFoundException;
+    ProcessDto updateProcess(Integer id, UpdateProcessRequest request) throws ProcessNotFoundException, UserNotFoundException;
+    ProcessDto deleteProcess(Integer id) throws ProcessNotFoundException;
+    ProcessDto assignProcess(Integer userid, Integer processid) throws ProcessNotFoundException,UserNotFoundException;
+    void assignStatus(CreateProcessRequest request, Integer processid) throws ProcessNotFoundException;
 }

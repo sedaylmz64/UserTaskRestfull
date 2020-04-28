@@ -6,7 +6,7 @@ public class UpdateTaskRequest {
     private String taskName;
     private TaskStatus status;
     private String description;
-    private int userId;
+    private Integer userId;
 
     public String getTaskName() {
         return taskName;
@@ -32,11 +32,11 @@ public class UpdateTaskRequest {
         this.status = status;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 }

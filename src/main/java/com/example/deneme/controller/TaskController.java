@@ -29,28 +29,28 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    public TaskDto getTaskById(@PathVariable(value = "id") int id) throws TaskNotFoundException {
+    public TaskDto getTaskById(@PathVariable(value = "id") Integer id) throws TaskNotFoundException {
         return taskService.getTaskById(id);
     }
 
     @PutMapping("/tasks/{id}")
-    public TaskDto updateTask(@PathVariable(value = "id") int id,
+    public TaskDto updateTask(@PathVariable(value = "id") Integer id,
                               @Valid @RequestBody UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException {
         return taskService.updateTask(id, request);
     }
 
-    @PutMapping("/tasks/{userid}/{taskid}")
-    public TaskDto assignTask(@PathVariable(value = "userid") int userid,@PathVariable(value = "taskid") int taskid) throws TaskNotFoundException, UserNotFoundException {
-        return taskService.assignTask(userid,taskid);
+    @PutMapping("/tasks/{userId}/{taskId}")
+    public TaskDto assignTask(@PathVariable(value = "userId") Integer userId,@PathVariable(value = "taskId") Integer taskId) throws TaskNotFoundException, UserNotFoundException {
+        return taskService.assignTask(userId,taskId);
     }
 
-    @PutMapping("/tasks/assignMetric/{taskid}")
-    public TaskDto assignMetric(@PathVariable(value = "taskid") int taskid, CreateMetricRequest request) throws TaskNotFoundException{
-        return taskService.assignMetric(taskid,request);
+    @PutMapping("/tasks/assignMetric/{taskId}")
+    public TaskDto assignMetric(@PathVariable(value = "taskId") Integer taskId, CreateMetricRequest request) throws TaskNotFoundException{
+        return taskService.assignMetric(taskId,request);
     }
 
     @DeleteMapping("/tasks/{id}")
-    public TaskDto deleteTask(@PathVariable(value = "id") int id) throws TaskNotFoundException {
+    public TaskDto deleteTask(@PathVariable(value = "id") Integer id) throws TaskNotFoundException {
         return taskService.deleteTask(id);
     }
 }

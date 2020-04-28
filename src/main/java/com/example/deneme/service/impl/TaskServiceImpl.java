@@ -17,7 +17,6 @@ import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.TaskService;
 import com.example.deneme.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,26 +26,29 @@ import java.util.stream.Collectors;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    @Autowired
-    private TaskRepository taskRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private MetricRepository metricRepository;
-    @Autowired
-    private TaskService taskService;
+    private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
+    private final UserService userService;
+    private final MetricRepository metricRepository;
+
+    public TaskServiceImpl(TaskRepository taskRepository, UserRepository userRepository, UserService userService, MetricRepository metricRepository) {
+        this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
+        this.userService = userService;
+        this.metricRepository = metricRepository;
+    }
 
     @Override
     public List<TaskDto> taskList() {
         List<TaskEntity> taskEntities = taskRepository.findAll();
 
-        List<TaskEntity> taskEntityList = taskEntities.stream()
-                .filter(taskEntity -> taskEntity.isDeleted())
-                .collect(Collectors.toList());
+        return TaskConverter.convert(getNotDeletedTask(taskEntities));
+    }
 
-        return TaskConverter.convert(taskEntityList);
+    private List<TaskEntity> getNotDeletedTask(List<TaskEntity> taskEntities) {
+        return taskEntities.stream()
+                .filter(taskEntity -> !taskEntity.isDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -55,34 +57,28 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.save(taskEntity);}
 
     @Override
-    public TaskDto getTaskById(int id) throws TaskNotFoundException{
+    public TaskDto getTaskById(Integer id) throws TaskNotFoundException{
           TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
-          if(taskEntity.isDeleted())
-              return null;
-
-          return TaskConverter.convert(taskEntity);
+          return taskEntity.isDeleted() ? null : TaskConverter.convert(taskEntity);
     }
 
     @Override
-    public TaskDto updateTask(int id, UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException {
+    public TaskDto updateTask(Integer id, UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
-        UserDto userDto = userService.getUserById(request.getUserId());
-
-        UserEntity userEntity = UserEntityConverter.convert(userDto);
+        UserEntity userEntity = UserEntityConverter.convert(userService.getUserById(request.getUserId()));
 
         prepareTaskEntity(request,taskEntity,userEntity);
 
-        TaskEntity updatedTask = taskRepository.save(taskEntity);
-        return TaskConverter.convert(updatedTask);
+        return TaskConverter.convert(taskRepository.save(taskEntity));
     }
 
 
     @Override
-    public TaskDto assignTask(int userid, int taskid) throws TaskNotFoundException, UserNotFoundException {
+    public TaskDto assignTask(Integer userid, Integer taskid) throws TaskNotFoundException, UserNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(taskid)
                 .orElseThrow(() -> new TaskNotFoundException(taskid));
 
@@ -91,14 +87,11 @@ public class TaskServiceImpl implements TaskService {
 
         taskEntity.setUserEntity(userEntity);
 
-        TaskEntity updatedTask = taskRepository.save(taskEntity);
-
-        return TaskConverter.convert(updatedTask);
+        return TaskConverter.convert(taskRepository.save(taskEntity));
     }
 
     @Override
-    public TaskDto assignMetric(int taskid, CreateMetricRequest request) throws TaskNotFoundException {
-        MetricEntity metricEntity = new MetricEntity();
+    public TaskDto assignMetric(Integer taskid, CreateMetricRequest request) throws TaskNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(request.getTaskId())
                 .orElseThrow(() -> new TaskNotFoundException(request.getTaskId()));
 
@@ -106,23 +99,27 @@ public class TaskServiceImpl implements TaskService {
 
         metricRepository.saveAll(MetricConverter.converts(metricDtos));
 
-        metricEntity.setTaskEntity(taskEntity);
         taskEntity.setMetricEntities(MetricConverter.converts(metricDtos));
 
-        TaskEntity updatedTask = taskRepository.save(taskEntity);
+        setMetricTask(taskEntity);
 
-        return TaskConverter.convert(updatedTask);
+        return TaskConverter.convert(taskRepository.save(taskEntity));
+    }
+
+    private void setMetricTask(TaskEntity taskEntity) {
+        List<MetricEntity> metricEntity = taskEntity.getMetricEntities();
+
+        metricEntity.stream().forEach(metricEntity1->metricEntity1.setTaskEntity(taskEntity));
     }
 
     @Override
-    public TaskDto deleteTask(int id) throws TaskNotFoundException {
+    public TaskDto deleteTask(Integer id) throws TaskNotFoundException {
         TaskEntity taskEntity = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
 
         taskEntity.setDeleted(true);
 
-        TaskEntity updatedTask = taskRepository.save(taskEntity);
-        return TaskConverter.convert(updatedTask);
+        return TaskConverter.convert(taskRepository.save(taskEntity));
     }
 
     private void prepareTaskEntity(UpdateTaskRequest request, TaskEntity taskEntity, UserEntity userEntity) {

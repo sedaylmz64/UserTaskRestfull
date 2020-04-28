@@ -5,7 +5,7 @@ import com.example.deneme.model.enums.ProcessStatus;
 public class UpdateProcessRequest {
     private String processName;
     private ProcessStatus processStatus;
-    private int userId;
+    private Integer userId;
 
     public String getProcessName() {
         return processName;
@@ -23,11 +23,11 @@ public class UpdateProcessRequest {
         this.processStatus = processStatus;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 }

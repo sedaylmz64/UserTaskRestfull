@@ -1,11 +1,7 @@
 package com.example.deneme.controller.request;
 
-import com.example.deneme.model.entity.TaskEntity;
-import com.example.deneme.model.entity.UserEntity;
-
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class CreateProcessRequest {
@@ -13,8 +9,8 @@ public class CreateProcessRequest {
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
-    private int userId;
-    private int taskId;
+    private Integer userId;
+    private Integer taskId;
     private Boolean deleted;
     private List<Integer> taskIdList;
     private String userNames;
@@ -23,7 +19,7 @@ public class CreateProcessRequest {
         return Collections.singleton(taskId);
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
 
@@ -59,11 +55,11 @@ public class CreateProcessRequest {
         this.status = status;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

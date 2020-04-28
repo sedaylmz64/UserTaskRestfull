@@ -9,42 +9,29 @@ import com.example.deneme.model.entity.MetricEntity;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.model.entity.UserEntity;
 import com.example.deneme.exception.UserNotFoundException;
-import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private TaskRepository taskRepository;
+    final int FIRST_THREE_DIGIT = 3;
 
+    private final UserRepository userRepository;
 
-    /*@Override
-    public List<UserEntity> userList() {
-        return userRepository.findAll();
-    }*/
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public List<UserDto> userList() {
-        List<UserEntity> userEntities = userRepository.findAll();
-        return UserConverter.convert(userEntities);
+        return UserConverter.convert(userRepository.findAll());
     }
-
 
     @Override
     public void createUser(CreateUserRequest request) {
@@ -53,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserById(int id) throws UserNotFoundException {
+    public UserDto getUserById(Integer id) throws UserNotFoundException {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
@@ -61,19 +48,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(int id, UpdateUserRequest request)  throws UserNotFoundException{
+    public UserDto updateUser(Integer id, UpdateUserRequest request)  throws UserNotFoundException{
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
         prepareUserEntity(request,userEntity);
 
-        UserEntity updateduser = userRepository.save(userEntity);
-
-        return UserConverter.convert(updateduser);
+        return UserConverter.convert(userRepository.save(userEntity));
     }
 
     @Override
-    public void deleteUser(int id)  throws UserNotFoundException{
+    public void deleteUser(Integer id)  throws UserNotFoundException{
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
@@ -81,32 +66,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getUserTaskMetric(int id) throws UserNotFoundException {
+    public String getUserTaskMetric(Integer id) throws UserNotFoundException {
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
-        List<TaskEntity> taskEntityList = userEntity.getTaskEntityList();
+        List<TaskEntity> taskList = userEntity.getTaskEntityList();
 
+        List<MetricEntity> metricList = getMetricList(taskList);
+
+       return taskList + "\n" + metricList;
+    }
+
+
+    private List<MetricEntity> getMetricList(List<TaskEntity> taskEntityList) {
         List<MetricEntity> metricEntityList = new ArrayList<>();
 
         for (TaskEntity taskEntity:taskEntityList){
             metricEntityList = taskEntity.getMetricEntities();
         }
 
-        taskEntityList.stream().forEach(taskEntity -> taskEntity.toString());
-        metricEntityList.stream().forEach(metricEntity -> metricEntity.toString());
-
-       return taskEntityList + "\n" + metricEntityList;
+        return metricEntityList;
     }
 
     @Override
     public List<UserDto> getUserListByName(String userName){
-        if(userName.length() < 3)
-            return Collections.emptyList();
-        else {
-            List<UserEntity> userEntityList = userRepository.findAllByUserName(userName);
-            return UserConverter.convert(userEntityList);
-        }
+         return userName.length() < FIRST_THREE_DIGIT ? Collections.emptyList() :
+                    UserConverter.convert(userRepository.findAllByUserName(userName));
     }
 
     private void prepareUserEntity(UpdateUserRequest request, UserEntity userEntity) {

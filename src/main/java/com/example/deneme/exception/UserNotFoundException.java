@@ -1,9 +1,9 @@
 package com.example.deneme.exception;
 
 public class UserNotFoundException extends Exception{
-    private int id;
+    private Integer id;
     private String userName;
-    public UserNotFoundException(int id) {
+    public UserNotFoundException(Integer id) {
         super(String.format("UserEntity is not found with id : '%d'", id));
     }
     public UserNotFoundException(String userName) {

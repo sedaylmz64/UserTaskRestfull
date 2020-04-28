@@ -7,18 +7,19 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class MetricDto implements Serializable {
-    private int metricId;
+    private Integer metricId;
     private MetricType metricType;
     private LocalDate startDate;
     private LocalDate originalEndDate;
     private LocalDate actualEndDate;
-    private int taskId;
+    private Integer taskId;
+    private Integer userId;
 
-    public int getMetricId() {
+    public Integer getMetricId() {
         return metricId;
     }
 
-    public void setMetricId(int metricId) {
+    public void setMetricId(Integer metricId) {
         this.metricId = metricId;
     }
 
@@ -54,12 +55,20 @@ public class MetricDto implements Serializable {
         this.actualEndDate = actualEndDate;
     }
 
-    public int getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override

@@ -4,7 +4,7 @@ package com.example.deneme.model.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "user")
@@ -12,7 +12,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "user_name" , nullable=false, length=200)
     private String userName;
@@ -42,11 +42,11 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

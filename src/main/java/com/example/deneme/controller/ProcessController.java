@@ -28,30 +28,30 @@ public class ProcessController {
     }
 
     @GetMapping("/processes/{id}")
-    public ProcessDto getProcessById(@PathVariable(value = "id") int id) throws ProcessNotFoundException {
+    public ProcessDto getProcessById(@PathVariable(value = "id") Integer id) throws ProcessNotFoundException {
         return processService.getProcessById(id);
     }
 
     @PutMapping("/processes/{id}")
-    public ProcessDto updateProcess(@PathVariable(value = "id") int id,
+    public ProcessDto updateProcess(@PathVariable(value = "id") Integer id,
                                          @Valid @RequestBody UpdateProcessRequest request) throws ProcessNotFoundException, UserNotFoundException {
         return processService.updateProcess(id, request);
     }
 
     @DeleteMapping("/processes/{id}")
-    public ProcessDto deleteProcess(@PathVariable(value = "id") int id) throws ProcessNotFoundException {
+    public ProcessDto deleteProcess(@PathVariable(value = "id") Integer id) throws ProcessNotFoundException {
         return processService.deleteProcess(id);
     }
 
-    @PutMapping("/processes/{userid}/{processid}")
-    public ProcessDto assignProcess(@PathVariable(value = "userid") int userid, @PathVariable(value = "processid")
-            int processid) throws ProcessNotFoundException, UserNotFoundException {
-        return processService.assignProcess(userid,processid);
+    @PutMapping("/processes/{userId}/{processId}")
+    public ProcessDto assignProcess(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "processId")
+            Integer processId) throws ProcessNotFoundException, UserNotFoundException {
+        return processService.assignProcess(userId,processId);
     }
 
-    @PutMapping("/processes/status/{processid}")
-    public void assignStatus(CreateProcessRequest request , @PathVariable(value = "processid") int processid) throws ProcessNotFoundException {
-        processService.assignStatus(request,processid);
+    @PutMapping("/processes/status/{processId}")
+    public void assignStatus(CreateProcessRequest request , @PathVariable(value = "processId") Integer processId) throws ProcessNotFoundException {
+        processService.assignStatus(request,processId);
     }
 
 }

@@ -5,7 +5,6 @@ package com.example.deneme.model.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("JpaModelReferenceInspection")
@@ -18,7 +17,7 @@ public class TaskEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "task_name" )
     private String taskName;
@@ -45,17 +44,21 @@ public class TaskEntity {
     @OneToMany(fetch = FetchType.LAZY)
     private List<MetricEntity> metricEntities = new ArrayList<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(updatable = false, insertable = false)
+    private ProcessEntity processEntity;
+
     public TaskEntity(String taskName, LocalDate startDate, LocalDate endDate) {
         this.taskName = taskName;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -121,6 +124,14 @@ public class TaskEntity {
 
     public void setMetricEntities(List<MetricEntity> metricEntities) {
         this.metricEntities = metricEntities;
+    }
+
+    public ProcessEntity getProcessEntity() {
+        return processEntity;
+    }
+
+    public void setProcessEntity(ProcessEntity processEntity) {
+        this.processEntity = processEntity;
     }
 
     @Override

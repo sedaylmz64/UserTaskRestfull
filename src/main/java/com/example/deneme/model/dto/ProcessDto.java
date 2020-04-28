@@ -2,25 +2,24 @@ package com.example.deneme.model.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class ProcessDto implements Serializable {
-    private int processId;
+    private Integer processId;
     private String processName;
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
     private Boolean deleted;
     private List<TaskDto> taskDtoList;
-    private int userId;
+    private Integer userId;
 
-    public int getProcessId() {
+    public Integer getProcessId() {
         return processId;
     }
 
-    public void setProcessId(int processId) {
+    public void setProcessId(Integer processId) {
         this.processId = processId;
     }
 
@@ -72,11 +71,11 @@ public class ProcessDto implements Serializable {
         this.taskDtoList = taskDtoList;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

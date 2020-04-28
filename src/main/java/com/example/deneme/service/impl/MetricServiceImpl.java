@@ -9,19 +9,21 @@ import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.repositories.MetricRepository;
 import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.service.MetricService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MetricServiceImpl implements MetricService {
 
-    @Autowired
-    MetricRepository metricRepository;
-    @Autowired
-    TaskRepository taskRepository;
+    private final MetricRepository metricRepository;
+    private final TaskRepository taskRepository;
+
+    public MetricServiceImpl(MetricRepository metricRepository, TaskRepository taskRepository) {
+        this.metricRepository = metricRepository;
+        this.taskRepository = taskRepository;
+    }
 
     @Override
-    public MetricDto assignTask(int taskid, int metricid) throws TaskNotFoundException, MetricNotFoundException {
+    public MetricDto assignTask(Integer taskid, Integer metricid) throws TaskNotFoundException, MetricNotFoundException {
         MetricEntity metricEntity = metricRepository.findById(metricid)
                 .orElseThrow(()->new MetricNotFoundException(metricid));
 
@@ -30,8 +32,6 @@ public class MetricServiceImpl implements MetricService {
 
         metricEntity.setTaskEntity(taskEntity);
 
-        MetricEntity updatedMetric = metricRepository.save(metricEntity);
-
-        return MetricConverter.convert(updatedMetric);
+        return MetricConverter.convert(metricRepository.save(metricEntity));
     }
 }
