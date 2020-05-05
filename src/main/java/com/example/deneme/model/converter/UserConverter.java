@@ -4,7 +4,6 @@ import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.model.entity.UserEntity;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserConverter {

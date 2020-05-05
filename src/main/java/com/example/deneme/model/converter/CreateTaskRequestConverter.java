@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class CreateTaskRequestConverter {
 
-    @Autowired
-    private static UserRepository userRepository;
-
-    public static TaskEntity convert(CreateTaskRequest request) throws UserNotFoundException {
+    public static TaskEntity convert(CreateTaskRequest request){
         TaskEntity taskEntity = new TaskEntity();
         taskEntity.setTaskName(request.getTaskName());
         taskEntity.setStartDate(request.getStartDate());
@@ -21,12 +18,13 @@ public class CreateTaskRequestConverter {
         taskEntity.setStatus(request.getStatus());
         taskEntity.setDeleted(request.getDeleted());
         taskEntity.setDescription(request.getDescription());
-        taskEntity.setMetricEntities(MetricConverter.converts(request.getMetricDtos()));
+
+        /*taskEntity.setMetricEntities(MetricConverter.converts(request.getMetricDtos()));
 
         UserDto userDto = UserConverter.convert(userRepository.findByUserName(request.getUserName())
         .orElseThrow(()->new UserNotFoundException(request.getUserName())));
 
-        taskEntity.setUserEntity(UserEntityConverter.convert(userDto));
+        taskEntity.setUserEntity(UserEntityConverter.convert(userDto));*/
 
         return taskEntity;
     }

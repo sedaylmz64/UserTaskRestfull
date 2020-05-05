@@ -20,5 +20,5 @@ public interface ProcessService {
     ProcessDto updateProcess(Integer id, UpdateProcessRequest request) throws ProcessNotFoundException, UserNotFoundException;
     ProcessDto deleteProcess(Integer id) throws ProcessNotFoundException;
     ProcessDto assignProcess(Integer userid, Integer processid) throws ProcessNotFoundException,UserNotFoundException;
-    void assignStatus(CreateProcessRequest request, Integer processid) throws ProcessNotFoundException;
+    void assignStatus(UpdateProcessRequest request, Integer processid) throws ProcessNotFoundException;
 }

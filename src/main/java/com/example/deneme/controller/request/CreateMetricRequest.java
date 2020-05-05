@@ -1,36 +1,43 @@
 package com.example.deneme.controller.request;
 
-import com.example.deneme.model.dto.MetricDto;
-import com.example.deneme.model.entity.MetricEntity;
-
-import java.util.List;
+import com.example.deneme.model.enums.MetricType;
+import java.time.LocalDate;
 
 public class CreateMetricRequest {
-    private Integer taskId;
-    private Integer userId;
-    private List<MetricDto> metrics;
+    private MetricType metricType;
+    private LocalDate startDate;
+    private LocalDate originalEndDate;
+    private LocalDate actualEndDate;
 
-    public Integer getTaskId() {
-        return taskId;
+    public MetricType getMetricType() {
+        return metricType;
     }
 
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
+    public void setMetricType(MetricType metricType) {
+        this.metricType = metricType;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public List<MetricDto> getMetrics() {
-        return metrics;
+    public LocalDate getOriginalEndDate() {
+        return originalEndDate;
     }
 
-    public void setMetrics(List<MetricDto> metrics) {
-        this.metrics = metrics;
+    public void setOriginalEndDate(LocalDate originalEndDate) {
+        this.originalEndDate = originalEndDate;
+    }
+
+    public LocalDate getActualEndDate() {
+        return actualEndDate;
+    }
+
+    public void setActualEndDate(LocalDate actualEndDate) {
+        this.actualEndDate = actualEndDate;
     }
 }

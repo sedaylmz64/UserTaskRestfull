@@ -1,5 +1,6 @@
 package com.example.deneme.repositories;
 
+import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     Optional<UserEntity> findByUserName(String username);
 
-    @Query("SELECT u.userName FROM UserEntity u WHERE u.userName LIKE :userName%")
+    @Query(value = "SELECT u FROM UserEntity u WHERE u.userName LIKE :userName%")
     List<UserEntity> findAllByUserName(@Param("userName") String userName);
 }

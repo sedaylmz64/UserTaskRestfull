@@ -45,7 +45,7 @@ public class TaskController {
     }
 
     @PutMapping("/tasks/assignMetric/{taskId}")
-    public TaskDto assignMetric(@PathVariable(value = "taskId") Integer taskId, CreateMetricRequest request) throws TaskNotFoundException{
+    public TaskDto assignMetric(@PathVariable(value = "taskId") Integer taskId, @Valid @RequestBody UpdateTaskRequest request) throws TaskNotFoundException{
         return taskService.assignMetric(taskId,request);
     }
 

@@ -9,19 +9,12 @@ public class CreateProcessRequest {
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
-    private Integer userId;
-    private Integer taskId;
     private Boolean deleted;
+    /*private Integer userId;
+    private Integer taskId;
     private List<Integer> taskIdList;
-    private String userNames;
+    private String userNames;*/
 
-    public Iterable<Integer> getTaskId() {
-        return Collections.singleton(taskId);
-    }
-
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
-    }
 
     public String getProcessName() {
         return processName;
@@ -55,7 +48,15 @@ public class CreateProcessRequest {
         this.status = status;
     }
 
-    public Integer getUserId() {
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    /*public Integer getUserId() {
         return userId;
     }
 
@@ -63,12 +64,12 @@ public class CreateProcessRequest {
         this.userId = userId;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
+    public Iterable<Integer> getTaskId() {
+        return Collections.singleton(taskId);
     }
 
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 
     public List<Integer> getTaskIdList() {
@@ -85,5 +86,5 @@ public class CreateProcessRequest {
 
     public void setUserNames(String userNames) {
         this.userNames = userNames;
-    }
+    }*/
 }

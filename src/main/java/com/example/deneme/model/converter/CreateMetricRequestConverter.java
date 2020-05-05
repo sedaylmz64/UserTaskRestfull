@@ -1,47 +1,20 @@
 package com.example.deneme.model.converter;
 
 import com.example.deneme.controller.request.CreateMetricRequest;
-import com.example.deneme.exception.TaskNotFoundException;
-import com.example.deneme.exception.UserNotFoundException;
-import com.example.deneme.model.dto.MetricDto;
-import com.example.deneme.model.dto.TaskDto;
-import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.model.entity.MetricEntity;
-import com.example.deneme.model.entity.TaskEntity;
-import com.example.deneme.repositories.TaskRepository;
-import com.example.deneme.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class CreateMetricRequestConverter {
-    @Autowired
-    private static TaskRepository taskRepository;
-    @Autowired
-    private static TaskDto taskDto;
-    @Autowired
-    private static UserDto userDto;
-    @Autowired
-    private static UserRepository userRepository;
 
-
-    public static List<MetricEntity> convert(CreateMetricRequest request){
-        return request.getMetrics()
-                .stream().map(CreateMetricRequestConverter::convert)
-                .collect(Collectors.toList());
-    }
-
-    private static MetricEntity convert(MetricDto metricDto) {
+    private static MetricEntity convert(CreateMetricRequest request) {
         MetricEntity metricEntity = new MetricEntity();
-        metricEntity.setId(metricDto.getMetricId());
-        metricEntity.setStartDate(metricDto.getStartDate());
-        metricEntity.setActualEndDate(metricDto.getActualEndDate());
-        metricEntity.setOriginalEndDate(metricDto.getOriginalEndDate());
-        metricEntity.setMetricType(metricDto.getMetricType());
+        metricEntity.setStartDate(request.getStartDate());
+        metricEntity.setActualEndDate(request.getActualEndDate());
+        metricEntity.setOriginalEndDate(request.getOriginalEndDate());
+        metricEntity.setMetricType(request.getMetricType());
 
-        try {
+        /*try {
             taskDto = TaskConverter
                     .convert(taskRepository.findById(metricDto.getTaskId())
                             .orElseThrow(()->new TaskNotFoundException(metricDto.getTaskId())));
@@ -54,7 +27,7 @@ public class CreateMetricRequestConverter {
         }
 
         metricEntity.setTaskEntity(TaskConverter.convert(taskDto));
-        metricEntity.setUserEntity(UserEntityConverter.convert(userDto));
+        metricEntity.setUserEntity(UserEntityConverter.convert(userDto));*/
 
         return metricEntity;
     }

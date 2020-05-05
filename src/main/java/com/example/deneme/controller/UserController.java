@@ -2,6 +2,8 @@ package com.example.deneme.controller;
 
 import com.example.deneme.controller.request.CreateUserRequest;
 import com.example.deneme.controller.request.UpdateUserRequest;
+import com.example.deneme.model.dto.MetricDto;
+import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.service.UserService;
@@ -9,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -22,28 +26,28 @@ public class UserController {
     }
 
     @GetMapping("/users/taskMetric/{id}")
-    public String getUserTaskMetric(@PathVariable(value = "id") Integer id) throws UserNotFoundException {
+    public Map<List<TaskDto>, List<MetricDto>> getUserTaskMetric(@PathVariable(value = "id") Integer id) throws UserNotFoundException {
         return userService.getUserTaskMetric(id);
     }
 
-    @GetMapping("/users/{userName}")
+    @GetMapping("/users/search/{userName}")
     public List<UserDto> getUserListByName(@PathVariable(value = "userName")String userName){
         return userService.getUserListByName(userName);
     }
 
     @PostMapping("/users")
-    public void createUser(@RequestBody CreateUserRequest request) {
+    public void createUser(@Valid @RequestBody CreateUserRequest request) {
         userService.createUser(request);
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/user/{id}")
     public UserDto getUserById(@PathVariable(value = "id") Integer id) throws UserNotFoundException {
         return userService.getUserById(id);
     }
 
     @PutMapping("/users/{id}")
     public UserDto updateUser(@PathVariable(value = "id") Integer id,
-                                            @Validated UpdateUserRequest request) throws UserNotFoundException {
+                                            @Validated @RequestBody UpdateUserRequest request) throws UserNotFoundException {
         return userService.updateUser(id,request);
     }
 

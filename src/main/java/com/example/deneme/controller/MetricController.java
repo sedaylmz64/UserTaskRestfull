@@ -14,7 +14,7 @@ public class MetricController {
     @Autowired
     MetricService metricService;
 
-    @PutMapping("/metrics/{taskId}/{metricId}")
+    @PutMapping("/metrics/{metricId}/{taskId}")
     public MetricDto assignTask(@PathVariable(value = "taskId") Integer taskId, @PathVariable(value = "metricId") Integer metricId) throws TaskNotFoundException, MetricNotFoundException {
         return metricService.assignTask(taskId,metricId);
     }

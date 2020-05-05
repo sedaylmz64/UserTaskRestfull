@@ -91,15 +91,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDto assignMetric(Integer taskid, CreateMetricRequest request) throws TaskNotFoundException {
-        TaskEntity taskEntity = taskRepository.findById(request.getTaskId())
-                .orElseThrow(() -> new TaskNotFoundException(request.getTaskId()));
+    public TaskDto assignMetric(Integer taskid, UpdateTaskRequest request) throws TaskNotFoundException {
+        TaskEntity taskEntity = taskRepository.findById(taskid)
+                .orElseThrow(() -> new TaskNotFoundException(taskid));
 
-        List<MetricDto> metricDtos = request.getMetrics();
+        List<MetricEntity> metricEntities = taskEntity.getMetricEntities();
 
-        metricRepository.saveAll(MetricConverter.converts(metricDtos));
+        metricRepository.saveAll(metricEntities);
 
-        taskEntity.setMetricEntities(MetricConverter.converts(metricDtos));
+        taskEntity.setMetricEntities(metricEntities);
 
         setMetricTask(taskEntity);
 

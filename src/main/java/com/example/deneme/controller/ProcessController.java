@@ -23,7 +23,7 @@ public class ProcessController {
     }
 
     @PostMapping("/processes")
-    public void createProcess(@RequestBody CreateProcessRequest request) throws UserNotFoundException {
+    public void createProcess(@Valid @RequestBody CreateProcessRequest request) throws UserNotFoundException {
         processService.createProcess(request);
     }
 
@@ -43,14 +43,14 @@ public class ProcessController {
         return processService.deleteProcess(id);
     }
 
-    @PutMapping("/processes/{userId}/{processId}")
+    @PutMapping("/processes/{processId}/{userId}")
     public ProcessDto assignProcess(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "processId")
             Integer processId) throws ProcessNotFoundException, UserNotFoundException {
         return processService.assignProcess(userId,processId);
     }
 
     @PutMapping("/processes/status/{processId}")
-    public void assignStatus(CreateProcessRequest request , @PathVariable(value = "processId") Integer processId) throws ProcessNotFoundException {
+    public void assignStatus(@Valid @RequestBody UpdateProcessRequest request , @PathVariable(value = "processId") Integer processId) throws ProcessNotFoundException {
         processService.assignStatus(request,processId);
     }
 

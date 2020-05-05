@@ -1,15 +1,10 @@
 package com.example.deneme.service;
 
-import com.example.deneme.controller.request.CreateMetricRequest;
 import com.example.deneme.controller.request.CreateTaskRequest;
 import com.example.deneme.controller.request.UpdateTaskRequest;
-import com.example.deneme.exception.MetricNotFoundException;
 import com.example.deneme.exception.UserNotFoundException;
-import com.example.deneme.model.dto.MetricDto;
 import com.example.deneme.model.dto.TaskDto;
-import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,5 +17,5 @@ public interface TaskService {
     TaskDto updateTask(Integer id, UpdateTaskRequest request) throws TaskNotFoundException, UserNotFoundException;
     TaskDto deleteTask(Integer id) throws TaskNotFoundException;
     TaskDto assignTask(Integer userid, Integer taskid) throws TaskNotFoundException, UserNotFoundException;
-    TaskDto assignMetric(Integer taskid, CreateMetricRequest request) throws TaskNotFoundException;
+    TaskDto assignMetric(Integer taskid, UpdateTaskRequest request) throws TaskNotFoundException;
 }

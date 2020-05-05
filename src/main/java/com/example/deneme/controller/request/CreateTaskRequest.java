@@ -11,9 +11,10 @@ public class CreateTaskRequest {
     private String status;
     private Boolean deleted;
     private String description;
-    private String userName;
+
+    /*private String userName;
     private List<MetricDto> metricDtos;
-    private String processName;
+    private String processName;*/
 
     public String getTaskName() {
         return taskName;
@@ -63,7 +64,7 @@ public class CreateTaskRequest {
         this.description = description;
     }
 
-    public String getUserName() {
+    /*public String getUserName() {
         return userName;
     }
 
@@ -85,5 +86,5 @@ public class CreateTaskRequest {
 
     public void setProcessName(String processName) {
         this.processName = processName;
-    }
+    }*/
 }

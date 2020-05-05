@@ -51,10 +51,7 @@ public class ProcessServiceImpl implements ProcessService {
 
     @Override
     public void createProcess(CreateProcessRequest request) throws UserNotFoundException {
-        UserEntity userEntity = userRepository.findById(request.getUserId())
-                .orElseThrow(()->new UserNotFoundException(request.getUserId()));
         ProcessEntity processEntity = CreateProcessRequestConverter.convert(request);
-        processEntity.setUserEntity(userEntity);
         processRepository.save(processEntity);
     }
 
@@ -108,15 +105,16 @@ public class ProcessServiceImpl implements ProcessService {
     }
 
     @Override
-    public void assignStatus(CreateProcessRequest request , Integer processid) throws ProcessNotFoundException {
+    public void assignStatus(UpdateProcessRequest request , Integer processid) throws ProcessNotFoundException {
         ProcessEntity processEntity = processRepository.findById(processid)
                 .orElseThrow(()-> new ProcessNotFoundException(processid));
 
-        List<TaskEntity> taskEntities = taskRepository.findAllById(request.getTaskId());
+
+        List<TaskEntity> taskEntities = processEntity.getTaskEntities();
+
         List<TaskDto> taskDtoList = TaskConverter.convert(taskEntities);
 
         setStatus(taskDtoList,processEntity);
-
     }
 
     private void setStatus(List<TaskDto> taskDtoList, ProcessEntity processEntity) {
