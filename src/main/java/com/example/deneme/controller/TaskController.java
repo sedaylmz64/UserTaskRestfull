@@ -39,7 +39,7 @@ public class TaskController {
         return taskService.updateTask(id, request);
     }
 
-    @PutMapping("/tasks/{userId}/{taskId}")
+    @PutMapping("/tasks/{taskId}/{userId}")
     public TaskDto assignTask(@PathVariable(value = "userId") Integer userId,@PathVariable(value = "taskId") Integer taskId) throws TaskNotFoundException, UserNotFoundException {
         return taskService.assignTask(userId,taskId);
     }
