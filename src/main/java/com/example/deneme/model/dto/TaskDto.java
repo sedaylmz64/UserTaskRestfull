@@ -12,7 +12,7 @@ public class TaskDto implements Serializable {
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
-    private Boolean deleted;
+    private boolean deleted;
     private String description;
     private Integer userId;
     private List<MetricDto> metricDtoList;
@@ -23,10 +23,6 @@ public class TaskDto implements Serializable {
 
     public void setTaskId(Integer taskId) {
         this.taskId = taskId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public String getTaskName() {
@@ -61,11 +57,11 @@ public class TaskDto implements Serializable {
         this.status = status;
     }
 
-    public Boolean getDeleted() {
+    public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 
@@ -77,11 +73,11 @@ public class TaskDto implements Serializable {
         this.description = description;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -101,6 +97,10 @@ public class TaskDto implements Serializable {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", status='" + status + '\'' +
+                ", deleted=" + deleted +
+                ", description='" + description + '\'' +
+                ", userId=" + userId +
+                ", metricDtoList=" + metricDtoList +
                 '}';
     }
 
@@ -109,15 +109,19 @@ public class TaskDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TaskDto taskDto = (TaskDto) o;
-        return taskId == taskDto.taskId &&
+        return Objects.equals(taskId, taskDto.taskId) &&
                 Objects.equals(taskName, taskDto.taskName) &&
                 Objects.equals(startDate, taskDto.startDate) &&
                 Objects.equals(endDate, taskDto.endDate) &&
-                Objects.equals(status, taskDto.status);
+                Objects.equals(status, taskDto.status) &&
+                Objects.equals(deleted, taskDto.deleted) &&
+                Objects.equals(description, taskDto.description) &&
+                Objects.equals(userId, taskDto.userId) &&
+                Objects.equals(metricDtoList, taskDto.metricDtoList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(taskId, taskName, startDate, endDate, status);
+        return Objects.hash(taskId, taskName, startDate, endDate, status, deleted, description, userId, metricDtoList);
     }
 }

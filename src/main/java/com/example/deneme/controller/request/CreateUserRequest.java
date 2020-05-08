@@ -6,7 +6,6 @@ public class CreateUserRequest {
     private String userName;
     private String password;
     private String role;
-    //private List<Integer> taskIdList;
 
     public String getUserName() {
         return userName;
@@ -32,11 +31,4 @@ public class CreateUserRequest {
         this.role = role;
     }
 
-    /*public List<Integer> getTaskIdList() {
-        return taskIdList;
-    }
-
-    public void setTaskIdList(List<Integer> taskIdList) {
-        this.taskIdList = taskIdList;
-    }*/
 }

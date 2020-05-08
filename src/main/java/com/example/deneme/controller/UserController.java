@@ -7,7 +7,6 @@ import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +16,11 @@ import java.util.Map;
 
 @RestController
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/users")
     public List<UserDto> userList(){

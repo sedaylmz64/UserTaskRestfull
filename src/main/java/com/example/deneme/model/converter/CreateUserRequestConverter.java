@@ -11,11 +11,6 @@ public class CreateUserRequestConverter {
         userEntity.setRole(request.getRole());
         userEntity.setUserName(request.getUserName());
 
-        /*List<Integer> taskIdList = request.getTaskIdList();
-        List<TaskEntity> taskEntityList = taskRepository.findAllById(taskIdList);
-        userEntity.setTaskEntityList(taskEntityList);*/
-
-
         return userEntity;
     }
 

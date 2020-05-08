@@ -24,17 +24,16 @@ public class SwaggerConfig {
                 .apiInfo(metaInfo());
     }
     private ApiInfo metaInfo() {
-        ApiInfo apiInfo = new ApiInfo(
+        return new ApiInfo(
                 "Task Management",
                 "API Documentations of The Task Management",
                 "1.0",
                 "Terms of Service",
-                new Contact("The Whiteside", "http://www.sedaylmz64.com",
+                new Contact("The Whiteside", "https://github.com/sedaylmz64",
                         "sedaylmz64@gmail.com"),
                 "Apache License Version 2.0",
                 "https://www.apache.org/licesen.html"
         );
-        return apiInfo;
     }
 }
 

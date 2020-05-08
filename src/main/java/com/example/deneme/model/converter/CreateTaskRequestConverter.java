@@ -19,13 +19,6 @@ public class CreateTaskRequestConverter {
         taskEntity.setDeleted(request.getDeleted());
         taskEntity.setDescription(request.getDescription());
 
-        /*taskEntity.setMetricEntities(MetricConverter.converts(request.getMetricDtos()));
-
-        UserDto userDto = UserConverter.convert(userRepository.findByUserName(request.getUserName())
-        .orElseThrow(()->new UserNotFoundException(request.getUserName())));
-
-        taskEntity.setUserEntity(UserEntityConverter.convert(userDto));*/
-
         return taskEntity;
     }
 }

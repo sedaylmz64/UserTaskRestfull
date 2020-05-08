@@ -32,6 +32,7 @@ public class TaskConverter {
         taskDto.setDeleted(taskEntity.isDeleted());
         taskDto.setDescription(taskEntity.getDescription());
         taskDto.setTaskId(taskEntity.getId());
+        taskDto.setUserId(taskEntity.getUserEntity().getId());
         taskDto.setMetricDtoList(MetricConverter.convert(taskEntity.getMetricEntities()));
 
         return taskDto;
@@ -52,7 +53,7 @@ public class TaskConverter {
         taskEntity.setStatus(taskDto.getStatus());
         taskEntity.setStartDate(taskDto.getStartDate());
         taskEntity.setEndDate(taskDto.getEndDate());
-        taskEntity.setDeleted(taskDto.getDeleted());
+        taskEntity.setDeleted(taskDto.isDeleted());
         taskEntity.setMetricEntities(MetricConverter.converts(taskDto.getMetricDtoList()));
         int id = taskDto.getUserId();
         UserDto userDto = null;

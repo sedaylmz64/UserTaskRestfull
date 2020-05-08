@@ -1,13 +1,10 @@
 package com.example.deneme.service.impl;
 
-import com.example.deneme.controller.request.CreateMetricRequest;
 import com.example.deneme.controller.request.CreateTaskRequest;
 import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.converter.*;
-import com.example.deneme.model.dto.MetricDto;
 import com.example.deneme.model.dto.TaskDto;
-import com.example.deneme.model.dto.UserDto;
 import com.example.deneme.model.entity.MetricEntity;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.exception.TaskNotFoundException;
@@ -17,7 +14,6 @@ import com.example.deneme.repositories.TaskRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.TaskService;
 import com.example.deneme.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,9 +36,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDto> taskList() {
-        List<TaskEntity> taskEntities = taskRepository.findAll();
-
-        return TaskConverter.convert(getNotDeletedTask(taskEntities));
+        return TaskConverter.convert(getNotDeletedTask(taskRepository.findAll()));
     }
 
     private List<TaskEntity> getNotDeletedTask(List<TaskEntity> taskEntities) {
@@ -52,7 +46,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void createTask(CreateTaskRequest request) throws UserNotFoundException {
+    public void createTask(CreateTaskRequest request) {
         TaskEntity taskEntity = CreateTaskRequestConverter.convert(request);
         taskRepository.save(taskEntity);}
 
@@ -135,7 +129,7 @@ public class TaskServiceImpl implements TaskService {
             taskEntity.setDescription(request.getDescription());
         }
 
-        if(request.getUserId() != 0){
+        if(request.getUserId() != null){
             taskEntity.setUserEntity(userEntity);
         }
     }

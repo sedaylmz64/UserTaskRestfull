@@ -13,16 +13,6 @@ public class CreateProcessRequestConverter {
         processEntity.setStatus(request.getStatus());
         processEntity.setDeleted(request.getDeleted());
 
-        /*List<Integer> taskIdList = request.getTaskIdList();
-        String userName = request.getUserNames();
-
-        List<TaskDto> taskDtoList = TaskConverter.convert(taskRepository.findAllById(taskIdList));
-        UserDto userDto = UserConverter.convert(userRepository.findByUserName(userName)
-                .orElseThrow(() -> new UserNotFoundException(userName)));
-
-        processEntity.setUserEntity(UserEntityConverter.convert(userDto));
-        processEntity.setTaskEntities(TaskConverter.converts(taskDtoList));*/
-
         return processEntity;
     }
 }

@@ -6,7 +6,6 @@ import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.dto.ProcessDto;
 import com.example.deneme.exception.ProcessNotFoundException;
 import com.example.deneme.service.ProcessService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,8 +13,11 @@ import java.util.List;
 
 @RestController
 public class ProcessController {
-    @Autowired
-    private ProcessService processService;
+    private final ProcessService processService;
+
+    public ProcessController(ProcessService processService) {
+        this.processService = processService;
+    }
 
     @GetMapping("/processes")
     public List<ProcessDto> processList(){
@@ -43,7 +45,7 @@ public class ProcessController {
         return processService.deleteProcess(id);
     }
 
-    @PutMapping("/processes/{processId}/{userId}")
+    @PutMapping("/processes/{processId}/user/{userId}")
     public ProcessDto assignProcess(@PathVariable(value = "userId") Integer userId, @PathVariable(value = "processId")
             Integer processId) throws ProcessNotFoundException, UserNotFoundException {
         return processService.assignProcess(userId,processId);

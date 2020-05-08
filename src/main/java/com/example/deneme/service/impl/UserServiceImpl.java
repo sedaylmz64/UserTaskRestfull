@@ -13,7 +13,6 @@ import com.example.deneme.model.entity.MetricEntity;
 import com.example.deneme.model.entity.TaskEntity;
 import com.example.deneme.model.entity.UserEntity;
 import com.example.deneme.exception.UserNotFoundException;
-import com.example.deneme.repositories.MetricRepository;
 import com.example.deneme.repositories.UserRepository;
 import com.example.deneme.service.UserService;
 import org.springframework.stereotype.Service;
@@ -25,11 +24,9 @@ public class UserServiceImpl implements UserService {
     final int FIRST_THREE_DIGIT = 3;
 
     private final UserRepository userRepository;
-    private final MetricRepository metricRepository;
 
-    public UserServiceImpl(UserRepository userRepository,MetricRepository metricRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.metricRepository = metricRepository;
     }
 
     @Override

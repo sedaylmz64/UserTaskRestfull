@@ -1,13 +1,11 @@
 package com.example.deneme.controller;
 
-import com.example.deneme.controller.request.CreateMetricRequest;
 import com.example.deneme.controller.request.CreateTaskRequest;
 import com.example.deneme.controller.request.UpdateTaskRequest;
 import com.example.deneme.exception.UserNotFoundException;
 import com.example.deneme.model.dto.TaskDto;
 import com.example.deneme.exception.TaskNotFoundException;
 import com.example.deneme.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,8 +13,11 @@ import java.util.List;
 
 @RestController
 public class TaskController {
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @GetMapping("/tasks")
     public List<TaskDto> taskList(){
@@ -39,7 +40,7 @@ public class TaskController {
         return taskService.updateTask(id, request);
     }
 
-    @PutMapping("/tasks/{taskId}/{userId}")
+    @PutMapping("/tasks/{taskId}/user/{userId}")
     public TaskDto assignTask(@PathVariable(value = "userId") Integer userId,@PathVariable(value = "taskId") Integer taskId) throws TaskNotFoundException, UserNotFoundException {
         return taskService.assignTask(userId,taskId);
     }

@@ -26,6 +26,10 @@ public class UserEntity {
     @OneToMany(fetch = FetchType.LAZY)
     private List<TaskEntity> taskEntityList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(updatable = false, insertable = false)
+    private TeamEntity teamEntity;
+
     public UserEntity(UserEntity users) {
         this.id = users.getId();
         this.userName = users.getUserName();
@@ -80,6 +84,14 @@ public class UserEntity {
 
     public void setTaskEntityList(List<TaskEntity> taskEntityList) {
         this.taskEntityList = taskEntityList;
+    }
+
+    public TeamEntity getTeamEntity() {
+        return teamEntity;
+    }
+
+    public void setTeamEntity(TeamEntity teamEntity) {
+        this.teamEntity = teamEntity;
     }
 
     @Override
